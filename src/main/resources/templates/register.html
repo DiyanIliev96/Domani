@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,6 +20,8 @@
 </head>
 
 <body class="text-center">
+
+<th:block th:insert="~{/fragments/navbar}"></th:block>
 <form class="form-signin" id="registrationForm">
 
     <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>

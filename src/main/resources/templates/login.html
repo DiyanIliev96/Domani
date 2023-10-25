@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,24 +18,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
   <body class="text-center">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Restaurant Name</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href=login.html>Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="register.html">Register</a>
-        </li>
-        <!-- Additional menu items here -->
-      </ul>
-    </div>
-  </nav>
+  <th:block th:insert="~{/fragments/navbar}"></th:block>
+
+
     <form class="form-signin">
 
       <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
