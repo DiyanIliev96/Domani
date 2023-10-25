@@ -1,0 +1,40 @@
+
+/* Welcome Section styles */
+section.container {
+    font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    color: #343A40; /* Black */
+    font-weight: 700;
+}
+
+p {
+    color: #343A40; /* Black */
+    font-weight: 400;
+}
+
+body {
+  background-color: #FDFFFC;
+}
+/* burger */
+.spinning-burger {
+    animation: spin 15s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* For better browser compatibility, add vendor prefixes */
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.spinning-burger {
+    -webkit-animation: spin 15s linear infinite;
+}
