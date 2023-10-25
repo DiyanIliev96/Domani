@@ -6,10 +6,12 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class AppSecurityConfig {
@@ -17,13 +19,27 @@ public class AppSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
-            auth.requestMatchers("/").permitAll();
-            auth.requestMatchers("/user/login","/user/register").anonymous();
+            auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                    .requestMatchers("/").permitAll()
+                    .requestMatchers("/user/login","/user/register").anonymous()
+                    .anyRequest().authenticated();
         });
 
+        http.formLogin(login -> {
+            login.loginPage("/user/login").permitAll();
+            login.usernameParameter("email");
+            login.passwordParameter("password");
+            login.successForwardUrl("/login-success").permitAll();
+        });
 
+        http.logout(logout -> {
+            logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                    .logoutSuccessUrl("/")
+                    .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true);
+        });
         return http.build();
     }
 

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="css/login.css" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
 
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -21,18 +21,18 @@
   <th:block th:insert="~{/fragments/navbar}"></th:block>
 
 
-    <form class="form-signin">
+    <form class="form-signin" th:action="@{/user/login}" th:method="post">
 
       <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
       <h1 class="h3 mb-3 font-weight-normal">Please Log in</h1>
       <p class="error text-danger">Incorrect username or password!</p>
       <div class="col-auto">
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
       </div>
       <div class="col-auto">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
       </div>
 
       <div class="checkbox mb-3">
