@@ -31,7 +31,8 @@ public class AppSecurityConfig {
             login.loginPage("/user/login").permitAll();
             login.usernameParameter("email");
             login.passwordParameter("password");
-            login.successForwardUrl("/login-success").permitAll();
+            login.successForwardUrl("/user/login-success").permitAll()
+                    .failureUrl("/user/login-failed");
         });
 
         http.logout(logout -> {
