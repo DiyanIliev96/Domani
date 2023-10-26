@@ -1,9 +1,12 @@
 package com.iliev.domani.service;
 
+import com.iliev.domani.model.dto.RegisterDto;
 import com.iliev.domani.model.entity.RoleEntity;
+import com.iliev.domani.model.entity.RoleNameEnum;
 import com.iliev.domani.model.entity.UserEntity;
 import com.iliev.domani.repository.RoleRepository;
 import com.iliev.domani.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +21,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final RoleRepository roleRepository;
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+
+    private final ModelMapper modelMapper;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -35,5 +41,13 @@ public class UserService {
             admin.setRoles(roles);
             userRepository.save(admin);
         }
+    }
+
+    public void register(RegisterDto registerDto) {
+        UserEntity newUser = modelMapper.map(registerDto, UserEntity.class);
+        newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        newUser.setRoles(Set.of(roleRepository.findByName(RoleNameEnum.USER).get()));
+        userRepository.save(newUser);
+        System.out.println();
     }
 }
