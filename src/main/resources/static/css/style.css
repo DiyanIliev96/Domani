@@ -16,7 +16,16 @@ p {
 }
 
 body {
-  background-color: #FDFFFC;
+  background-image: url("/images/background.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    width: 100%;
+    padding: 167px;
+    font-size: calc(8px + 1vw);
+    line-height: calc(1.1em + 0.5vw);
 }
 /* burger */
 .spinning-burger {
