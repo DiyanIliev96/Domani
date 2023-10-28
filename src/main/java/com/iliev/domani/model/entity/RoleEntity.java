@@ -32,4 +32,9 @@ public class RoleEntity {
         this.name = name;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return name.toString();
+    }
 }
