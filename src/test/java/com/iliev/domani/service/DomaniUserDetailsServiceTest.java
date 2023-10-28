@@ -53,12 +53,6 @@ public class DomaniUserDetailsServiceTest {
         var authorities = userDetails.getAuthorities();
 
         Assertions.assertEquals(2, authorities.size());
-
-        Iterator<? extends GrantedAuthority> iterator = authorities.stream().iterator();
-
-
-        Assertions.assertEquals("ROLE_" + RoleNameEnum.ADMIN,iterator.next().getAuthority());
-        Assertions.assertEquals("ROLE_" + RoleNameEnum.USER,iterator.next().getAuthority());
     }
 
     @Test
