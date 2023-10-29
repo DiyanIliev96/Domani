@@ -19,6 +19,7 @@ public class AppInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         roleService.initRoles();
-        userService.initAdmin();
+        userService.initUsers();
+
     }
 }

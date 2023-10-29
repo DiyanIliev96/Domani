@@ -2,7 +2,7 @@ package com.iliev.domani.service;
 
 import com.iliev.domani.model.entity.RoleEntity;
 import com.iliev.domani.model.entity.UserEntity;
-import com.iliev.domani.model.user.DomaniUserDetail;
+import com.iliev.domani.user.DomaniUserDetail;
 import com.iliev.domani.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

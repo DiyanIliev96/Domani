@@ -3,7 +3,7 @@ package com.iliev.domani.service;
 import com.iliev.domani.model.entity.RoleEntity;
 import com.iliev.domani.model.entity.RoleNameEnum;
 import com.iliev.domani.model.entity.UserEntity;
-import com.iliev.domani.model.user.DomaniUserDetail;
+import com.iliev.domani.user.DomaniUserDetail;
 import com.iliev.domani.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,10 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link href="css/users.css" rel="stylesheet">
+<link href="/css/users.css" rel="stylesheet">
 
 <script>
 $(document).ready(function(){
@@ -27,50 +27,47 @@ $(document).ready(function(){
                         <h2>User <b>Management</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>
-                        <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>						
+                        <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add</span></a>
+                        <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export</span></a>						
                     </div>
                 </div>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>						
-                        <th>Date Created</th>
-                        <th>Role</th>
-                        <th>Status</th>
+                        <th class="d-none d-md-table-cell">#</th>
+                        <th>Full Name</th>
+                        <th class="d-none d-sm-table-cell">Email</th>
+                        <th class="d-none d-md-table-cell">Role</th>
+                        <th class="d-none d-lg-table-cell">Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="#">
-                            <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
-                            Michael Holz
-                        </a></td>
-                        <td>04/10/2013</td>                        
-                        <td>Admin</td>
-                        <td><span class="status text-success">&bull;</span> Active</td>
+                <tbody th:object="${users}" >
+                    <tr th:each="u : ${users}">
+                        <td class="d-none d-md-table-cell" th:text="${u.getUserId()}">1</td>
+                        <td >
+                         <th:block>
+                             <a href="#">
+                                 <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
+                                <th:block th:text="${u.getFullName()}"></th:block>
+                             </a>
+                         </th:block>
+                        </td>
+                        <td class="d-none d-sm-table-cell" th:text="${u.getEmail()}">mail@mail.com</td>
+                <td class="d-none d-md-table-cell" th:switch="${u.getUserRoles().size()}">
+                    <th:block th:case="2">Admin</th:block>
+                    <th:block th:case="1">User</th:block>
+                </td>
+                        <td class="d-none d-lg-table-cell"><span class="status text-success">&bull;</span> Active</td>
                         <td>
                             <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                            <a th:href="@{/admin/users/{id}(id = ${u.getUserId()})}" class="delete" title="Delete" data-toggle="tooltip">
+                                <i class="material-icons">&#xE5C9;</i>
+                            </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><a href="#">
-                            <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
-                        Paula Wilson</a></td>
-                        <td>05/08/2014</td>                       
-                        <td>Publisher</td>
-                        <td><span class="status text-success">&bull;</span> Active</td>
-                        <td>
-                            <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
             <div class="clearfix">
