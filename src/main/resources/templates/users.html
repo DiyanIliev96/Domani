@@ -61,10 +61,19 @@ $(document).ready(function(){
                 </td>
                         <td class="d-none d-lg-table-cell"><span class="status text-success">&bull;</span> Active</td>
                         <td>
-                            <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-                            <a th:href="@{/admin/users/{id}(id = ${u.getUserId()})}" class="delete" title="Delete" data-toggle="tooltip">
-                                <i class="material-icons">&#xE5C9;</i>
-                            </a>
+<!--                            <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>-->
+<!--                            <a th:href="@{/admin/users/{id}(id = ${u.getUserId()})}" class="delete" title="Delete" data-toggle="tooltip">-->
+<!--                                <i class="material-icons">&#xE5C9;</i>-->
+<!--                            </a>-->
+
+                            <form
+                                    th:object="${u}"
+                                    th:action="@{/admin/users/{id}(id=*{userId})}"
+                                    th:method="delete"
+
+                            >
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
                         </td>
                     </tr>
 

@@ -21,8 +21,8 @@ public class AdminUsersController {
         return "users";
     }
 
-    @RequestMapping(value = "/users/{id}")
-    private String deleteUser(@PathVariable Long id) {
+   @DeleteMapping("/users/{id}")
+    private String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/admin/users";
     }
