@@ -8,6 +8,8 @@ import com.iliev.domani.model.view.UserView;
 import com.iliev.domani.repository.RoleRepository;
 import com.iliev.domani.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -71,15 +73,12 @@ public class UserService {
         newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         newUser.setRoles(Set.of(roleRepository.findByName(RoleNameEnum.USER).get()));
         userRepository.save(newUser);
-        System.out.println();
     }
 
-    public List<UserView> getAllUsers() {
-        List<UserView> userViews = userRepository.findAllByOrderById().stream()
-                .map(user -> modelMapper.map(user, UserView.class))
-                .toList();
-        System.out.println();
-        return userViews;
+    public Page<UserView> getAllUsers(Pageable pageable) {
+
+        return userRepository.findAll(pageable)
+                .map(user -> modelMapper.map(user, UserView.class));
     }
 
     public void deleteUserById(Long id) {
