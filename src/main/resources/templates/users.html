@@ -88,21 +88,29 @@ $(document).ready(function(){
                         <a th:href="@{/admin/users(size = ${users.getSize()},page=${users.getNumber() - 1})}" class="page-link">
                             Previous</a>
                     </li>
+<!--                    <li class="page-item" th:classappend="${users.getNumber() == 0 ? 'active' : ''}">-->
+<!--                        <a th:href="@{/admin/users(size=${users.getSize()},page=0)}" class="page-link">1</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:classappend="${users.getNumber() == 1 ? 'active' : ''}">-->
+<!--                        <a th:href="@{/admin/users(size=${users.getSize()},page=1)}" class="page-link">2</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:classappend="${users.getNumber() == 2 ? 'active' : ''}">-->
+<!--                        <a th:href="@{/admin/users(size=${users.getSize()},page=2)}" class="page-link">3</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:classappend="${users.getNumber() == 3 ? 'active' : ''}">-->
+<!--                        <a th:href="@{/admin/users(size=${users.getSize()},page=3)}" class="page-link">4</a>-->
+<!--                    </li>-->
                     <li class="page-item" th:classappend="${users.getNumber() == 0 ? 'active' : ''}">
                         <a th:href="@{/admin/users(size=${users.getSize()},page=0)}" class="page-link">1</a>
                     </li>
-                    <li class="page-item" th:classappend="${users.getNumber() == 1 ? 'active' : ''}">
-                        <a th:href="@{/admin/users(size=${users.getSize()},page=1)}" class="page-link">2</a>
+                    <li th:if="${users.getTotalPages() > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}"
+                        th:classappend="${pageNumber==users.getNumber()} ? 'active' : ''">
+                        <a th:href="@{/admin/users(size=${users.getSize()},page=${pageNumber})}" th:text="${pageNumber} + 1"
+                         >
+
+                        </a>
                     </li>
-                    <li class="page-item" th:classappend="${users.getNumber() == 2 ? 'active' : ''}">
-                        <a th:href="@{/admin/users(size=${users.getSize()},page=2)}" class="page-link">3</a>
-                    </li>
-                    <li class="page-item" th:classappend="${users.getNumber() == 3 ? 'active' : ''}">
-                        <a th:href="@{/admin/users(size=${users.getSize()},page=3)}" class="page-link">4</a>
-                    </li>
-                    <li class="page-item" th:classappend="${users.getNumber() == 4 ? 'active' : ''}">
-                        <a th:href="@{/admin/users(size=${users.getSize()},page=4)}" class="page-link">5</a>
-                    </li>
+
                     <li class="page-item" th:classappend="${users.hasNext() ? 'active' : 'disabled'}">
                         <a th:href="@{/admin/users(size = ${users.getSize()},page=${users.getNumber() + 1})}" class="page-link" >
                             Next</a>
