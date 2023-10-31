@@ -1,7 +1,7 @@
 package com.iliev.domani.service;
 
 import com.iliev.domani.model.entity.RoleEntity;
-import com.iliev.domani.model.entity.RoleNameEnum;
+import com.iliev.domani.model.enums.RoleNameEnum;
 import com.iliev.domani.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 

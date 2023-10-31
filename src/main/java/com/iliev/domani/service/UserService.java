@@ -2,7 +2,8 @@ package com.iliev.domani.service;
 
 import com.iliev.domani.model.dto.RegisterDto;
 import com.iliev.domani.model.entity.RoleEntity;
-import com.iliev.domani.model.entity.RoleNameEnum;
+import com.iliev.domani.model.enums.InitUserNamesEnum;
+import com.iliev.domani.model.enums.RoleNameEnum;
 import com.iliev.domani.model.entity.UserEntity;
 import com.iliev.domani.model.view.UserView;
 import com.iliev.domani.repository.RoleRepository;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,26 +47,14 @@ public class UserService {
             admin.setRoles(roles);
             userRepository.save(admin);
 
-            RoleEntity role = roleRepository.findByName(RoleNameEnum.USER).get();
-            UserEntity userOne = new UserEntity()
-                    .setFullName("User one")
-                    .setEmail("user@one.com")
-                    .setPassword(passwordEncoder.encode("userone"))
-                    .setRoles(Set.of(role));
-            UserEntity userTwo = new UserEntity()
-                    .setFullName("User two")
-                    .setEmail("user@two.com")
-                    .setPassword(passwordEncoder.encode("usertwo"))
-                    .setRoles(Set.of(role));
-            UserEntity userThree = new UserEntity()
-                    .setFullName("User three")
-                    .setEmail("user@three.com")
-                    .setPassword(passwordEncoder.encode("userthree"))
-                    .setRoles(Set.of(role));
-
-            userRepository.save(userOne);
-            userRepository.save(userTwo);
-            userRepository.save(userThree);
+            RoleEntity userRole = roleRepository.findByName(RoleNameEnum.USER).get();
+            List<UserEntity> userEntities = Arrays.stream(InitUserNamesEnum.values())
+                    .map(initUserNamesEnum -> new UserEntity()
+                            .setFullName(initUserNamesEnum.name())
+                            .setEmail(initUserNamesEnum.name() + "@example.com")
+                            .setPassword(passwordEncoder.encode(initUserNamesEnum.name()))
+                            .setRoles(Set.of(userRole))).toList();
+            userRepository.saveAll(userEntities);
         }
     }
 

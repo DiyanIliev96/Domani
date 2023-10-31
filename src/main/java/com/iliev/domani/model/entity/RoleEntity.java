@@ -1,5 +1,6 @@
 package com.iliev.domani.model.entity;
 
+import com.iliev.domani.model.enums.RoleNameEnum;
 import jakarta.persistence.*;
 
 @Entity

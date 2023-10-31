@@ -1,4 +1,4 @@
-package com.iliev.domani.model.entity;
+package com.iliev.domani.model.enums;
 
 public enum RoleNameEnum {
 

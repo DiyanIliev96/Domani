@@ -24,7 +24,7 @@ public class AdminUsersController {
     }
 
     @GetMapping("/users")
-    private String getUsers(Model model,@PageableDefault(size = 2,sort = "id") Pageable pageable) {
+    private String getUsers(Model model,@PageableDefault(size = 3,sort = "id") Pageable pageable) {
         Page<UserView> allUsers = userService.getAllUsers(pageable);
         int totalPages = allUsers.getTotalPages();
         List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages - 1).boxed().toList();
