@@ -24,7 +24,7 @@ public class AppSecurityConfig {
             auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .requestMatchers("/").permitAll()
                     .requestMatchers("/user/login","/user/register").anonymous()
-                    .requestMatchers("/admin/users").hasRole("ADMIN")
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated();
         });
 

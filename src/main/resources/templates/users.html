@@ -62,6 +62,7 @@ $(document).ready(function(){
                 </td>
                         <td class="d-none d-lg-table-cell"><span class="status text-success">&bull;</span> Active</td>
                         <td>
+                            <a th:href="@{/admin/users/edit/{id}(id=${u.getUserId()})}" class="settings" title="Settings" data-toggle="modal" data-target="#editUserModal"><i class="material-icons">&#xE8B8;</i></a>
                             <form
                                     th:object="${u}"
                                     th:action="@{/admin/users/{id}(id=*{userId})}"

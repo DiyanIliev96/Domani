@@ -1,5 +1,6 @@
 package com.iliev.domani.web;
 
+import com.iliev.domani.model.dto.EditUserDto;
 import com.iliev.domani.model.view.UserView;
 import com.iliev.domani.service.UserService;
 import org.springframework.data.domain.Page;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +38,18 @@ public class AdminUsersController {
    @DeleteMapping("/users/{id}")
     private String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/users/edit/{id}")
+    private String editUser(@PathVariable Long id,Model model) {
+        model.addAttribute("editUser",userService.findById(id));
+        return "editProfile";
+    }
+
+    @PostMapping("/users/edit/{id}")
+    private String doEdit(@PathVariable String id, EditUserDto editUserDto, BindingResult bindingResult) {
+        userService.doEditUser(id,editUserDto);
         return "redirect:/admin/users";
     }
 }
