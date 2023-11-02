@@ -1,11 +1,18 @@
 package com.iliev.domani.model.dto;
 
 
+import com.iliev.domani.validation.UniqueEmail;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class EditUserDto {
-
+    @Size(min = 5,max = 30)
+    @NotBlank
     String fullName;
-
+    @NotBlank(message = "Email cannot be empty!")
+    @Email(message = "Enter valid email!")
+    @UniqueEmail
     String email;
 
     String role;
