@@ -62,11 +62,6 @@ $(document).ready(function(){
                 </td>
                         <td class="d-none d-lg-table-cell"><span class="status text-success">&bull;</span> Active</td>
                         <td>
-<!--                            <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>-->
-<!--                            <a th:href="@{/admin/users/{id}(id = ${u.getUserId()})}" class="delete" title="Delete" data-toggle="tooltip">-->
-<!--                                <i class="material-icons">&#xE5C9;</i>-->
-<!--                            </a>-->
-
                             <form
                                     th:object="${u}"
                                     th:action="@{/admin/users/{id}(id=*{userId})}"
@@ -88,18 +83,6 @@ $(document).ready(function(){
                         <a th:href="@{/admin/users(size = ${users.getSize()},page=${users.getNumber() - 1})}" class="page-link">
                             Previous</a>
                     </li>
-<!--                    <li class="page-item" th:classappend="${users.getNumber() == 0 ? 'active' : ''}">-->
-<!--                        <a th:href="@{/admin/users(size=${users.getSize()},page=0)}" class="page-link">1</a>-->
-<!--                    </li>-->
-<!--                    <li class="page-item" th:classappend="${users.getNumber() == 1 ? 'active' : ''}">-->
-<!--                        <a th:href="@{/admin/users(size=${users.getSize()},page=1)}" class="page-link">2</a>-->
-<!--                    </li>-->
-<!--                    <li class="page-item" th:classappend="${users.getNumber() == 2 ? 'active' : ''}">-->
-<!--                        <a th:href="@{/admin/users(size=${users.getSize()},page=2)}" class="page-link">3</a>-->
-<!--                    </li>-->
-<!--                    <li class="page-item" th:classappend="${users.getNumber() == 3 ? 'active' : ''}">-->
-<!--                        <a th:href="@{/admin/users(size=${users.getSize()},page=3)}" class="page-link">4</a>-->
-<!--                    </li>-->
                     <li class="page-item" th:classappend="${users.getNumber() == 0 ? 'active' : ''}">
                         <a th:href="@{/admin/users(size=${users.getSize()},page=0)}" class="page-link">1</a>
                     </li>
