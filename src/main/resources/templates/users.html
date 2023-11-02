@@ -49,7 +49,7 @@ $(document).ready(function(){
                         <td class="d-none d-md-table-cell" th:text="${u.getUserId()}">1</td>
                         <td >
                          <th:block>
-                             <a href="#">
+                             <a th:href="@{/admin/users/edit/{id}(id=${u.getUserId()})}">
                                  <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
                                 <th:block th:text="${u.getFullName()}"></th:block>
                              </a>
