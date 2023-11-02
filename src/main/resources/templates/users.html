@@ -78,7 +78,9 @@ $(document).ready(function(){
 
             </table>
             <div class="clearfix">
-                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                <div class="hint-text">Showing <b>
+                    <th:block th:text="${users.getSize()}"></th:block>
+                </b> out of <b><th:block th:text="${users.getTotalElements()}"></th:block></b> entries</div>
                 <ul class="pagination">
                     <li class="page-item" th:classappend="${users.hasPrevious()} ? 'active' : 'disabled'">
                         <a th:href="@{/admin/users(size = ${users.getSize()},page=${users.getNumber() - 1})}" class="page-link">
