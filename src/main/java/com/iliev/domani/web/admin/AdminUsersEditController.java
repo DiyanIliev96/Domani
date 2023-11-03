@@ -1,4 +1,4 @@
-package com.iliev.domani.web;
+package com.iliev.domani.web.admin;
 
 import com.iliev.domani.model.dto.EditUserDto;
 import com.iliev.domani.model.view.UserView;

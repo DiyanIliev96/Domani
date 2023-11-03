@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+  <title>Restaurant Home Page</title>
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Title</title>
+</head>
+<body>
+<div class="container">
+  <h1>New user</h1>
+  <hr>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="col-md-9 personal-info">
+      <h3>New user info</h3>
+
+      <form th:action="@{/admin/users/create}" method="post" class="form-horizontal" role="form" th:object="${createUser}">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Full name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" th:field="*{fullName}" th:errorclass="is-invalid">
+            <div class="invalid-feedback errors text-danger" th:if="${#fields.hasErrors('fullName')}">
+              Full name length must be between 5 and 30 characters!
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" th:field="*{email}" th:errorclass="is-invalid">
+            <div class="invalid-feedback text-danger" th:each="err : ${#fields.errors('email')}" th:text="${err}">
+            Email should be valid!</div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Password:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="password" th:field="*{password}" th:errorclass="is-invalid">
+            <div class="invalid-feedback text-danger" th:each="err : ${#fields.errors('password')}" th:text="${err}">
+              Password length must be between 5 and 30 characters!
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Confirm password:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="password" th:field="*{confirmPassword}" th:errorclass="is-invalid">
+            <div class="invalid-feedback text-danger" th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}">
+              Password length must be between 5 and 30 characters!
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputRole" class="col-md-3 control-label">Role</label>
+          <div class="col-md-8">
+            <select id="inputRole" class="form-control" name="role" title="Select a user role" th:errorclass="is-invalid"
+            th:field="*{role}">
+              <option value="" selected>Select Role</option>
+              <option  th:each="role : ${T(com.iliev.domani.model.enums.RoleNameEnum).values()}"
+                th:text="${role}"
+                th:value="${role}"
+                th:selected="${role}==*{role}">USER</option>
+            </select>
+            <div class="invalid-feedback errors text-danger" th:if="${#fields.hasErrors('role')}">Role cannot be null!</div>
+          </div>
+          <span class="invalid-feedback alert text-danger">Role cannot be null!</span>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input type="submit" class="btn btn-primary" value="Create user">
+            <span></span>
+            <a th:href="@{/admin/users}" class="btn btn-default">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>
+</body>
+</html>
