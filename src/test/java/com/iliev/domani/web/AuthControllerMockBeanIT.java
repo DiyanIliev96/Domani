@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserRegistrationControllerMockBeanIT {
+public class AuthControllerMockBeanIT {
     @Autowired
     private MockMvc mockMvc;
 
@@ -81,5 +81,23 @@ public class UserRegistrationControllerMockBeanIT {
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
+    }
+
+    @Test
+    @WithMockUser
+    void testLoginSuccessPage() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/login-success").with(csrf()))
+
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    void testLoginUnSuccessfullyPage() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/login-failed").with(csrf())
+                .param("email","wrongEmail")
+                .param("password","wrongPassword"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("http://localhost/user/login"));
     }
 }

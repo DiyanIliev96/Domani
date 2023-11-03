@@ -65,5 +65,4 @@ public class DomaniUserDetailsServiceTest {
                 () -> toTest.loadUserByUsername("non-existant@example.com")
         );
     }
-
 }
