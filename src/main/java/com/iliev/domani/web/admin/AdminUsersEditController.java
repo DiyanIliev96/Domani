@@ -2,6 +2,7 @@ package com.iliev.domani.web.admin;
 
 import com.iliev.domani.model.dto.EditUserDto;
 import com.iliev.domani.model.view.UserView;
+import com.iliev.domani.service.AdminService;
 import com.iliev.domani.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminUsersEditController {
 
     private final UserService userService;
+    private final AdminService adminService;
 
-    public AdminUsersEditController(UserService userService) {
+    public AdminUsersEditController(UserService userService, AdminService adminService) {
         this.userService = userService;
+        this.adminService = adminService;
     }
 
 
@@ -40,7 +43,7 @@ public class AdminUsersEditController {
         if (bindingResult.hasFieldErrors("fullName") && !byId.getFullName().equals(editUserDto.getFullName())) {
             return "redirect:/admin/users/edit/" + id;
         }
-        userService.doEditUser(id,editUserDto);
+        adminService.doEditUser(id,editUserDto);
         return "redirect:/admin/users";
     }
 }

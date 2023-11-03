@@ -1,11 +1,10 @@
 package com.iliev.domani.service;
 
-import com.iliev.domani.model.dto.EditUserDto;
 import com.iliev.domani.model.dto.RegisterDto;
 import com.iliev.domani.model.entity.RoleEntity;
+import com.iliev.domani.model.entity.UserEntity;
 import com.iliev.domani.model.enums.InitUserNamesEnum;
 import com.iliev.domani.model.enums.RoleNameEnum;
-import com.iliev.domani.model.entity.UserEntity;
 import com.iliev.domani.model.view.UserView;
 import com.iliev.domani.repository.RoleRepository;
 import com.iliev.domani.repository.UserRepository;
@@ -72,32 +71,7 @@ public class UserService {
                 .map(user -> modelMapper.map(user, UserView.class));
     }
 
-    public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
-    }
-
     public UserView findById(Long id) {
         return modelMapper.map(userRepository.findById(id).get(),UserView.class);
-    }
-
-    public void doEditUser(String id, EditUserDto editUserDto) {
-        UserEntity userToEdit = userRepository.findById(Long.parseLong(id)).get();
-
-        if (!userToEdit.getFullName().equals(editUserDto.getFullName())) {
-            userToEdit.setFullName(editUserDto.getFullName());
-        }
-
-        if (!userToEdit.getEmail().equals(editUserDto.getEmail())) {
-            userToEdit.setEmail(editUserDto.getEmail());
-        }
-
-        if (editUserDto.getRole().equals("ADMIN")) {
-            userToEdit.getRoles().add(roleRepository.findByName(RoleNameEnum.ADMIN).get());
-        }
-
-        if (editUserDto.getRole().equals("USER")) {
-            userToEdit.getRoles().remove(roleRepository.findByName(RoleNameEnum.ADMIN).get());
-        }
-        userRepository.save(userToEdit);
     }
 }

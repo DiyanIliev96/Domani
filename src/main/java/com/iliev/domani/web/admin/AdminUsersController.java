@@ -1,6 +1,7 @@
 package com.iliev.domani.web.admin;
 
 import com.iliev.domani.model.view.UserView;
+import com.iliev.domani.service.AdminService;
 import com.iliev.domani.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +20,11 @@ import java.util.stream.IntStream;
 @RequestMapping(value = "/admin")
 public class AdminUsersController {
 
+    private final AdminService adminService;
     private final UserService userService;
 
-    public AdminUsersController(UserService userService) {
+    public AdminUsersController(AdminService adminService, UserService userService) {
+        this.adminService = adminService;
         this.userService = userService;
     }
 
@@ -37,7 +40,7 @@ public class AdminUsersController {
 
    @DeleteMapping("/users/{id}")
     private String deleteUser(@PathVariable("id") Long id) {
-        userService.deleteUserById(id);
+        adminService.deleteUserById(id);
         return "redirect:/admin/users";
     }
 
