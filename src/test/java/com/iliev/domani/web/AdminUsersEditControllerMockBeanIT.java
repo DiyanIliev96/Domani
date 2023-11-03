@@ -46,10 +46,20 @@ public class AdminUsersEditControllerMockBeanIT {
 
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
+    void testUserEditWithWrongLengthFullName_hasRoleAdmin() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/1").with(csrf())
+                        .param("fullName","te")
+                        .param("email","wrong@length.com"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/users/edit/1"));
+    }
+
+    @Test
+    @WithMockUser(roles = {"USER","ADMIN"})
     void testSuccessUserEdit_hasRoleAdmin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/1").with(csrf())
                         .param("fullName","testtest")
-                        .param("email","test@test.com")
+                        .param("email","test@testtest.com")
                         .param("role",""))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/users"));
@@ -59,8 +69,19 @@ public class AdminUsersEditControllerMockBeanIT {
     void testSuccessUserEditRole_hasRoleAdmin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/1").with(csrf())
                         .param("fullName","testtest")
-                        .param("email","test@test.com")
+                        .param("email","test@editRole.com")
                         .param("role","ADMIN"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/users"));
+    }
+
+    @Test
+    @WithMockUser(roles = {"USER","ADMIN"})
+    void testSuccessEditRoleToUser_hasRoleAdmin() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/1").with(csrf())
+                        .param("fullName","testtest")
+                        .param("email","test@editRole.com")
+                        .param("role","USER"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/users"));
     }

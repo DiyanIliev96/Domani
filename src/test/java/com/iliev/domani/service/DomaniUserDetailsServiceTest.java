@@ -47,7 +47,7 @@ public class DomaniUserDetailsServiceTest {
         Assertions.assertEquals(testUserEntity.getEmail(),userDetails.getEmail());
         Assertions.assertEquals(testUserEntity.getPassword(),userDetails.getPassword());
         Assertions.assertEquals(testUserEntity.getFullName(),userDetails.getFullName());
-
+        Assertions.assertEquals(testUserEntity.getEmail(),userDetails.getUsername());
         var authorities = userDetails.getAuthorities();
 
         Assertions.assertEquals(2, authorities.size());

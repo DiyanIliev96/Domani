@@ -33,7 +33,7 @@ public class AuthControllerMockBeanIT {
     void testUserRegistration() throws Exception {
         mockMvc.perform(post("/user/register")
                 .param("fullName","Test Testov")
-                .param("email","test@test.com")
+                .param("email","test@example.com")
                 .param("password","test123")
                 .param("confirmPassword","test123")
                         .with(csrf()))
@@ -45,7 +45,7 @@ public class AuthControllerMockBeanIT {
     void testUserRegistrationBadCredentials() throws Exception {
         mockMvc.perform(post("/user/register")
                 .param("fullName","t")
-                .param("email","test@test.com")
+                .param("email","test@t.com")
                 .param("password","test123")
                 .param("confirmPassword","test123")
                 .with(csrf()))
@@ -94,10 +94,10 @@ public class AuthControllerMockBeanIT {
 
     @Test
     void testLoginUnSuccessfullyPage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/login-failed").with(csrf())
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/login-failed").with(csrf())
                 .param("email","wrongEmail")
                 .param("password","wrongPassword"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("http://localhost/user/login"));
+                .andExpect(redirectedUrl("/user/login"));
     }
 }
