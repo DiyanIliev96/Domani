@@ -80,7 +80,7 @@ public class AdminController {
         return "edit-profile";
     }
 
-    @PostMapping("/users/edit/{id}")
+    @PatchMapping("/users/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String doEdit(@Valid EditUserDto editUserDto, BindingResult bindingResult,
                           RedirectAttributes redirectAttributes,

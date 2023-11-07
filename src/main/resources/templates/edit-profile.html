@@ -32,7 +32,7 @@
     <div class="col-md-9 personal-info">
       <h3>Personal info</h3>
 
-      <form th:action="@{/admin/users/edit/{id}(id=${editUser.userId})}" method="post" class="form-horizontal" role="form" th:object="${editUser}">
+      <form th:action="@{/admin/users/edit/{id}(id=${editUser.userId})}" th:method="patch" class="form-horizontal" role="form" th:object="${editUser}">
         <div class="form-group">
           <label class="col-lg-3 control-label">Full name:</label>
           <div class="col-lg-8">
