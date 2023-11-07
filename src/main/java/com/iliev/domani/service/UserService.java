@@ -1,5 +1,6 @@
 package com.iliev.domani.service;
 
+import com.iliev.domani.exception.ObjectNotFoundException;
 import com.iliev.domani.model.dto.CreateUserDto;
 import com.iliev.domani.model.dto.EditUserDto;
 import com.iliev.domani.model.dto.RegisterDto;
@@ -63,7 +64,8 @@ public class UserService {
     public void register(RegisterDto registerDto) {
         UserEntity newUser = modelMapper.map(registerDto, UserEntity.class);
         newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        newUser.setRoles(Set.of(roleRepository.findByName(RoleNameEnum.USER).get()));
+        newUser.setRoles(Set.of(roleRepository.findByName(RoleNameEnum.USER)
+                .orElseThrow(() ->new ObjectNotFoundException("Role not found!"))));
         userRepository.save(newUser);
     }
 
@@ -74,7 +76,9 @@ public class UserService {
     }
 
     public EditUserDto findById(Long id) {
-        return modelMapper.map(userRepository.findById(id).get(),EditUserDto.class);
+        UserEntity userToEdit = userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("User not found!"));
+        return modelMapper.map(userToEdit,EditUserDto.class);
     }
 
     public void deleteUserById(Long id) {
