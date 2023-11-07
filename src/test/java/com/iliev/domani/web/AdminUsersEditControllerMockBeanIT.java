@@ -22,7 +22,7 @@ public class AdminUsersEditControllerMockBeanIT {
     void testUserEditPageShown_hasRoleAdmin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/admin/users/edit/1").with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("editProfile"));
+                .andExpect(view().name("edit-profile"));
     }
 
     @Test

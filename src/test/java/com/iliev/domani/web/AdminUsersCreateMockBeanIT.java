@@ -22,7 +22,7 @@ public class AdminUsersCreateMockBeanIT {
     void testAdminCreateUserPageShown() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/admin/users/create"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("createUser"));
+                .andExpect(view().name("create-user"));
     }
 
     @Test
