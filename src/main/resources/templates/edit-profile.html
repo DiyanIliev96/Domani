@@ -36,15 +36,17 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">Full name:</label>
           <div class="col-lg-8">
-            <input class="form-control" type="text" th:field="*{fullName}">
+            <input class="form-control" type="text" th:field="*{fullName}" th:errorclass="is-invalid">
           </div>
-          <span class="alert text-info">Full name length must be between 5 and 30 characters!</span>
+          <span class="alert text-info" th:if="${wrong_fullName}">Full name length must be between 5 and 30 characters!</span>
+
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Email:</label>
           <div class="col-lg-8">
             <input class="form-control" type="text" th:field="*{email}">
           </div>
+          <th:block th:if="${wrong_email}">
           <span class="alert text-info">Email should be valid!</span>
           <br>
           <span class="alert text-info">Email should be unique and not empty!</span>
@@ -52,10 +54,10 @@
         <div class="form-group">
         <label for="inputRole" class="col-md-3 control-label">Role</label>
           <div class="col-md-8">
-        <select id="inputRole" class="form-control" name="role" title="Select a user role" th:switch="${editUser.getUserRoles().size()}">
-          <option value="" selected>Select Role</option>
-          <option th:case="1" value="ADMIN">ADMIN</option>
-          <option th:case="2" value="USER" >USER</option>
+        <select id="inputRole" class="form-control" name="roles" title="Select a user role" th:switch="${editUser.roles}">
+          <option value="0" selected>Select Role</option>
+          <option th:case="1" value="2">ADMIN</option>
+          <option th:case="2" value="1" >USER</option>
         </select>
           </div>
         </div>

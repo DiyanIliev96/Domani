@@ -73,8 +73,8 @@ public class UserService {
                 .map(user -> modelMapper.map(user, UserView.class));
     }
 
-    public UserView findById(Long id) {
-        return modelMapper.map(userRepository.findById(id).get(),UserView.class);
+    public EditUserDto findById(Long id) {
+        return modelMapper.map(userRepository.findById(id).get(),EditUserDto.class);
     }
 
     public void deleteUserById(Long id) {
@@ -105,11 +105,11 @@ public class UserService {
             userToEdit.setEmail(editUserDto.getEmail());
         }
 
-        if (editUserDto.getRole().equals("ADMIN")) {
+        if (editUserDto.getRoles() == 2) {
             userToEdit.getRoles().add(roleRepository.findByName(RoleNameEnum.ADMIN).get());
         }
 
-        if (editUserDto.getRole().equals("USER")) {
+        if (editUserDto.getRoles() == 1) {
             userToEdit.getRoles().remove(roleRepository.findByName(RoleNameEnum.ADMIN).get());
         }
         userRepository.save(userToEdit);

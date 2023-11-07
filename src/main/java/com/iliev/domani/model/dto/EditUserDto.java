@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class EditUserDto {
+
+    private Long userId;
     @Size(min = 5,max = 30)
     @NotBlank
     String fullName;
@@ -15,7 +17,7 @@ public class EditUserDto {
     @UniqueEmail
     String email;
 
-    String role;
+    Integer roles;
 
     public String getFullName() {
         return fullName;
@@ -35,12 +37,21 @@ public class EditUserDto {
         return this;
     }
 
-    public String getRole() {
-        return role;
+    public int getRoles() {
+        return roles;
     }
 
-    public EditUserDto setRole(String role) {
-        this.role = role;
+    public EditUserDto setRoles(int roles) {
+        this.roles = roles;
+        return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public EditUserDto setUserId(Long userId) {
+        this.userId = userId;
         return this;
     }
 }

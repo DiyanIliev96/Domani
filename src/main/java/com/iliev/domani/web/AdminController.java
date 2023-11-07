@@ -8,9 +8,11 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,6 +31,7 @@ public class AdminController {
 
 
     @GetMapping("/users")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String getUsers(Model model, @PageableDefault(size = 3,sort = "id") Pageable pageable) {
         Page<UserView> allUsers = userService.getAllUsers(pageable);
         int totalPages = allUsers.getTotalPages();
@@ -39,12 +42,14 @@ public class AdminController {
     }
 
     @DeleteMapping("/users/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/admin/users";
     }
 
     @GetMapping("/users/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String getCreateUser(Model model) {
         if (!model.containsAttribute("createUser")) {
             model.addAttribute("createUser",new CreateUserDto());
@@ -53,6 +58,7 @@ public class AdminController {
     }
 
     @PostMapping("/users/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String doCreateUser(@Valid CreateUserDto createUserDto, BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -66,20 +72,42 @@ public class AdminController {
     }
 
     @GetMapping("/users/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String editUser(@PathVariable Long id, Model model) {
-        model.addAttribute("editUser",userService.findById(id));
+        if (!model.containsAttribute("editUser")) {
+            model.addAttribute("editUser",userService.findById(id));
+        }
         return "edit-profile";
     }
 
     @PostMapping("/users/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String doEdit(@Valid EditUserDto editUserDto, BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes,
                           @PathVariable String id) {
-        UserView byId = userService.findById(Long.parseLong(id));
-        if (bindingResult.hasErrors() && !byId.getEmail().equals(editUserDto.getEmail())) {
+        EditUserDto userToEdit = userService.findById(Long.parseLong(id));
+
+//      /*If full name and email inputs are wrong display error messages for both.Then redirect to edit form again with
+//      populated fields.*/
+        if (bindingResult.hasErrors() && !userToEdit.getFullName().equals(editUserDto.getFullName()) &&
+        !userToEdit.getEmail().equals(editUserDto.getEmail())) {
+            redirectAttributes.addFlashAttribute("editUser",userToEdit);
+            redirectAttributes.addFlashAttribute("wrong_email",true);
+            redirectAttributes.addFlashAttribute("wrong_fullName",true);
             return "redirect:/admin/users/edit/" + id;
         }
 
-        if (bindingResult.hasFieldErrors("fullName") && !byId.getFullName().equals(editUserDto.getFullName())) {
+        /*Display error message only for email if input is wrong.Then redirect to edit form again with populated fields.*/
+        if (bindingResult.hasErrors() && !userToEdit.getEmail().equals(editUserDto.getEmail())) {
+            redirectAttributes.addFlashAttribute("editUser",userToEdit);
+            redirectAttributes.addFlashAttribute("wrong_email",true);
+            return "redirect:/admin/users/edit/" + id;
+        }
+
+        /*Display error message only for full name if input is wrong.Then return to edit form with populated fields.*/
+        if (bindingResult.hasFieldErrors("fullName") && !userToEdit.getFullName().equals(editUserDto.getFullName())) {
+            redirectAttributes.addFlashAttribute("editUser",userToEdit);
+            redirectAttributes.addFlashAttribute("wrong_fullName", true);
             return "redirect:/admin/users/edit/" + id;
         }
         userService.doEditUser(id,editUserDto);
