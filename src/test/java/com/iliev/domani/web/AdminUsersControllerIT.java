@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AdminControllerIT {
+public class AdminUsersControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -103,7 +103,7 @@ public class AdminControllerIT {
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
     void testUserEditWithBadSizeFullName_hasRoleAdmin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/2").with(csrf())
+        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf())
                         .param("fullName","test"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/users/edit/2"));
@@ -112,7 +112,7 @@ public class AdminControllerIT {
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
     void testUserEditWithBadTypeEmail_hasRoleAdmin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/2").with(csrf())
+        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf())
                         .param("fullName","testtest")
                         .param("email","nonExistingTypeOfEmail"))
                 .andExpect(status().is3xxRedirection())
@@ -122,7 +122,7 @@ public class AdminControllerIT {
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
     void testUserEditWithWrongLengthFullName_hasRoleAdmin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/2").with(csrf())
+        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf())
                         .param("fullName","te")
                         .param("email","wrong@length.com"))
                 .andExpect(status().is3xxRedirection())
@@ -132,7 +132,7 @@ public class AdminControllerIT {
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
     void testSuccessUserEdit_hasRoleAdmin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/2").with(csrf())
+        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf())
                         .param("fullName","testtest")
                         .param("email","test@testtest.com")
                         .param("roles", String.valueOf(0)))
@@ -142,7 +142,7 @@ public class AdminControllerIT {
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
     void testSuccessUserEditRole_hasRoleAdmin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/2").with(csrf())
+        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf())
                         .param("fullName","testtest")
                         .param("email","test@editRole.com")
                         .param("roles","2"))
@@ -153,7 +153,7 @@ public class AdminControllerIT {
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
     void testSuccessEditRoleToUser_hasRoleAdmin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/2").with(csrf())
+        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf())
                         .param("fullName","testtest")
                         .param("email","test@editRole.com")
                         .param("roles","1"))
@@ -163,7 +163,7 @@ public class AdminControllerIT {
     @Test
     @WithMockUser(roles = {"USER"})
     void testUserEditPageForbidden_hasRoleUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/admin/users/edit/2").with(csrf()))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf()))
                 .andExpect(status().isForbidden());
     }
 }
