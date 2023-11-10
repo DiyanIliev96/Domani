@@ -1,0 +1,82 @@
+/* styles.css */
+.menu-section {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.menu-title {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.menu-categories .btn {
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+.menu-categories .btn:hover {
+    transform: translateY(-5px);
+}
+
+.menu-items {
+    margin-top: 30px;
+}
+
+.menu-item {
+    margin-bottom: 30px;
+    transition: box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.menu-img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.menu-description {
+    text-align: left;
+}
+
+.menu-description h5 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-top: 15px;
+}
+
+.menu-description p {
+    color: #666;
+}
+
+.price {
+    float: right;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Animation for the price */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.price {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .menu-description h5 {
+        font-size: 1rem;
+    }
+    .menu-description p {
+        font-size: 0.875rem;
+    }
+    .price {
+        font-size: 1rem;
+    }
+}

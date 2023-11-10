@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu Item Management</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/menu-management.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center">Menu Item Management</h2>
+    <div class="text-right mb-3">
+        <button class="btn btn-primary">Add Menu Item</button>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Picture</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="menu-item-row">
+                <td><img src="images/menu-item.png" alt="Menu Item" class="menu-item-img"></td>
+                <td>Dessert</td>
+                <td>New York Cheesecake with fresh strawberries and mint leaves</td>
+                <td>9.99</td>
+                <td>
+                    <button class="btn btn-info btn-sm btn-action edit">Edit</button>
+                    <button class="btn btn-danger btn-sm btn-action delete">Delete</button>
+                </td>
+            </tr>
+
+            <tr class="menu-item-row">
+                <td><img src="images/pizza-no-bg.jpg" alt="Menu Item" class="menu-item-img"></td>
+                <td>Pizza</td>
+                <td>New York Pizza with fresh cheese and basil leaves</td>
+                <td>19.99</td>
+                <td>
+                    <button class="btn btn-info btn-sm btn-action edit">Edit</button>
+                    <button class="btn btn-danger btn-sm btn-action delete">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

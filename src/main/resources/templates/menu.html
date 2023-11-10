@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant Menu</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/menu.css">
+</head>
+<body>
+
+    <div class="container menu-section">
+        <h1 class="menu-title">Our Menu</h1>
+        <div class="menu-categories">
+            <button class="btn btn-warning active" data-filter="*">All</button>
+            <button class="btn btn-outline-dark" data-filter=".breakfast">Breakfast</button>
+            <button class="btn btn-outline-dark" data-filter=".lunch">Lunch</button>
+            <button class="btn btn-outline-dark" data-filter=".dinner">Dinner</button>
+            <button class="btn btn-outline-dark" data-filter=".dessert">Dessert</button>
+        </div>
+        <div class="row menu-items">
+            <div class="col-md-4 menu-item breakfast">
+                <img src="images/menu-item.png" class="menu-img" alt="Breakfast Item">
+                <div class="menu-description">
+                    <h5>Breakfast Item Name</h5>
+                    <p>Description of the breakfast item.</p>
+                    <span class="price">8.00</span>
+                </div>
+            </div>
+    
+            <div class="col-md-4 menu-item lunch">
+                <img src="images/menu-item.png" class="menu-img" alt="Lunch Item">
+                <div class="menu-description">
+                    <h5>Lunch Item Name</h5>
+                    <p>Description of the lunch item.</p>
+                    <span class="price">12.00</span>
+                </div>
+            </div>
+    
+            <div class="col-md-4 menu-item dinner">
+                <img src="images/pizza-no-bg.jpg" class="menu-img" alt="Dinner Item">
+                <div class="menu-description">
+                    <h5>Dinner Item Name</h5>
+                    <p>Description of the dinner item.</p>
+                    <span class="price">15.00</span>
+                </div>
+            </div>
+    
+            <div class="col-md-4 menu-item dessert">
+                <img src="images/pizza-no-bg.jpg" class="menu-img" alt="Dessert Item">
+                <div class="menu-description">
+                    <h5>Dessert Item Name</h5>
+                    <p>Description of the dessert item.</p>
+                    <span class="price">6.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('.menu-categories button').click(function(){
+    var filterValue = $(this).attr('data-filter');
+    if(filterValue == "*") {
+      $('.menu-item').show();
+    } else {
+      $('.menu-item').not(filterValue).hide();
+      $('.menu-item').filter(filterValue).show();
+    }
+    $('.menu-categories button').removeClass('active');
+    $(this).addClass('active');
+  });
+});
+</script>
+
+</body>
+</html>
