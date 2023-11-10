@@ -4,12 +4,14 @@ import com.iliev.domani.exception.ObjectNotFoundException;
 import com.iliev.domani.model.dto.AddProductDto;
 import com.iliev.domani.model.entity.CategoryEntity;
 import com.iliev.domani.model.entity.ProductEntity;
+import com.iliev.domani.model.view.ProductView;
 import com.iliev.domani.repository.CategoryRepository;
 import com.iliev.domani.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -35,7 +37,12 @@ public class ProductService {
         newProduct.setCategory(category)
                         .setImageUrl(imageUrl);
         productRepository.save(newProduct);
-        System.out.println();
+    }
 
+    public List<ProductView> getAllProducts() {
+        return productRepository.findAllByOrderByCategory_NameAscNameAsc()
+                .stream()
+                .map(productEntity -> modelMapper.map(productEntity, ProductView.class))
+                .toList();
     }
 }

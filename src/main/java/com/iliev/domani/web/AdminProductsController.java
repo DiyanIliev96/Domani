@@ -1,6 +1,7 @@
 package com.iliev.domani.web;
 
 import com.iliev.domani.model.dto.AddProductDto;
+import com.iliev.domani.model.view.ProductView;
 import com.iliev.domani.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -21,8 +23,10 @@ public class AdminProductsController {
     }
 
     @GetMapping("/menu/management")
-    private String getMenuManagement() {
+    private String getMenuManagement(Model model) {
+        List<ProductView> allProducts = productService.getAllProducts();
 
+        model.addAttribute("allProducts",allProducts);
         return "menu-management";
     }
 
