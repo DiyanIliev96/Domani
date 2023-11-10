@@ -10,6 +10,27 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false,unique = true)
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private CategoryNameEnum name;
+
+    public CategoryEntity() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public CategoryEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public CategoryNameEnum getName() {
+        return name;
+    }
+
+    public CategoryEntity setName(CategoryNameEnum name) {
+        this.name = name;
+        return this;
+    }
 }
