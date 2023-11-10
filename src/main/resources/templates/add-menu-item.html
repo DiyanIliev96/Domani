@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,37 +15,61 @@
     <div class="card">
         <div class="card-body">
             <h2 class="card-title text-center">Add Menu Item</h2>
-            <form id="addMenuItemForm">
+            <form id="addMenuItemForm" th:object="${newProduct}" th:action="@{/admin/menu/add}" th:method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="itemName">Item Name</label>
-                    <input type="text" class="form-control" id="itemName" placeholder="Enter item name" required>
+                    <input type="text"
+                           class="form-control"
+                           id="itemName"
+                           name="name"
+                           placeholder="Enter item name"
+                           required
+                           th:field="*{name}">
                 </div>
 
                 <div class="form-group">
                     <label for="itemCategory">Category</label>
-                    <select class="form-control" id="itemCategory" required>
+                    <select class="form-control" name="category" th:field="*{category}" id="itemCategory" required>
                         <option value="">Select a category</option>
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch">Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="dessert">Dessert</option>
+                        <option th:each="cat : ${T(com.iliev.domani.model.enums.CategoryNameEnum).values()}"
+                        th:text="${cat}"
+                        th:value="${cat}"
+                        th:selected="${cat}==*{category}">Breakfast</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="itemDescription">Description</label>
-                    <textarea class="form-control" id="itemDescription" rows="3" placeholder="Enter item description" required></textarea>
+                    <textarea class="form-control"
+                              id="itemDescription"
+                              rows="3"
+                              placeholder="Enter item description"
+                              required
+                              th:field="*{description}"
+                              name="description"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="itemPrice">Price</label>
-                    <input type="number" min="0" step="0.01" class="form-control" id="itemPrice" placeholder="Enter item price" required>
+                    <input type="number"
+                           min="0"
+                           step="0.01"
+                           class="form-control"
+                           id="itemPrice"
+                           placeholder="Enter item price"
+                           required
+                           th:field="*{price}"
+                           name="price">
                 </div>
 
                 <div class="form-group">
                     <label for="itemImage">Item Image</label>
-                    <input type="file" class="form-control-file" id="itemImage">
+                    <input type="file"
+                           class="form-control-file"
+                           id="itemImage"
+                           th:field="*{image}"
+                           name="image">
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
