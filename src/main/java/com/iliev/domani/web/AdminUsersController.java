@@ -12,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,11 +20,11 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminUsersController {
 
     private final UserService userService;
 
-    public AdminController(UserService userService) {
+    public AdminUsersController(UserService userService) {
         this.userService = userService;
     }
 
