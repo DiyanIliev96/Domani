@@ -21,7 +21,9 @@ public class MenuController {
     @GetMapping("/menu")
     private String getMenu(Model model) {
         List<ProductView> allLunchProducts = productService.getAllProductsByCategory(CategoryNameEnum.Lunch);
-        model.addAttribute("allLunchProducts",allLunchProducts);
+        List<ProductView> allPizzaProducts = productService.getAllProductsByCategory(CategoryNameEnum.Pizza);
+        model.addAttribute("lunchProducts",allLunchProducts);
+        model.addAttribute("pizzaProducts",allPizzaProducts);
         return "menu";
     }
 }

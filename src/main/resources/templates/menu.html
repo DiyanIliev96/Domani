@@ -31,7 +31,7 @@
                 </div>
             </div>
     
-            <div class="col-md-4 menu-item lunch" th:each="lunch : ${allLunchProducts}">
+            <div class="col-md-4 menu-item lunch" th:each="lunch : ${lunchProducts}">
                 <img th:src="@{${lunch.getImageUrl()}}" class="menu-img" alt="Lunch Item">
                 <div class="menu-description">
                     <h5 th:text="${lunch.getName()}">Lunch Item Name</h5>
@@ -58,12 +58,12 @@
                 </div>
             </div>
 
-            <div class="col-md-4 menu-item pizza">
-                <img src="/images/pizza-no-bg.jpg" class="menu-img" alt="Pizza Item">
+            <div class="col-md-4 menu-item pizza" th:each="pizza : ${pizzaProducts}">
+                <img th:src="@{${pizza.getImageUrl()}}" class="menu-img" alt="Pizza Item">
                 <div class="menu-description">
-                    <h5>Pizza Item Name</h5>
-                    <p>Description of the dessert item.</p>
-                    <span class="price">6.00</span>
+                    <h5 th:text="${pizza.getName()}">Pizza Item Name</h5>
+                    <p th:text="${pizza.getDescription()}">Description of the dessert item.</p>
+                    <span class="price" th:text="${pizza.getPrice()}">12.00</span>
                 </div>
             </div>
         </div>
