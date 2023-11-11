@@ -1,11 +1,13 @@
 package com.iliev.domani.web;
 
+import com.iliev.domani.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -165,5 +167,12 @@ public class AdminUsersControllerIT {
     void testUserEditPageForbidden_hasRoleUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf()))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(roles = {"USER","ADMIN"})
+    void testUserEditPageThrowWhenUserDoesntExist() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/admin/users/edit/0").with(csrf()))
+                .andExpect(status().isNotFound());
     }
 }
