@@ -4,6 +4,7 @@ import com.iliev.domani.model.dto.AddProductDto;
 import com.iliev.domani.model.view.ProductView;
 import com.iliev.domani.service.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,7 @@ public class AdminProductsController {
     }
 
     @GetMapping("/menu/management")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String getMenuManagement(Model model) {
         List<ProductView> allProducts = productService.getAllProducts();
 
@@ -32,6 +34,7 @@ public class AdminProductsController {
     }
 
     @GetMapping("/menu/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String getAddProduct(Model model) {
         if (!model.containsAttribute("newProduct")) {
             model.addAttribute("newProduct",new AddProductDto());
@@ -40,6 +43,7 @@ public class AdminProductsController {
     }
 
     @PostMapping("/menu/add")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String addProduct(@Valid AddProductDto addProductDto, BindingResult bindingResult,
                               RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
@@ -52,6 +56,7 @@ public class AdminProductsController {
     }
 
     @DeleteMapping("/menu/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return "redirect:/admin/menu/management";
