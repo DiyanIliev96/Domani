@@ -30,12 +30,12 @@
                 </div>
             </div>
     
-            <div class="col-md-4 menu-item lunch">
-                <img src="/images/menu-item.png" class="menu-img" alt="Lunch Item">
+            <div class="col-md-4 menu-item lunch" th:each="lunch : ${allLunchProducts}">
+                <img th:src="@{${lunch.getImageUrl()}}" class="menu-img" alt="Lunch Item">
                 <div class="menu-description">
-                    <h5>Lunch Item Name</h5>
-                    <p>Description of the lunch item.</p>
-                    <span class="price">12.00</span>
+                    <h5 th:text="${lunch.getName()}">Lunch Item Name</h5>
+                    <p th:text="${lunch.getDescription()}">Description of the lunch item.</p>
+                    <span class="price" th:text="${lunch.getPrice()}">12.00</span>
                 </div>
             </div>
     

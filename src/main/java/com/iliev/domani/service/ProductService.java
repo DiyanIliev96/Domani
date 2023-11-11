@@ -4,6 +4,7 @@ import com.iliev.domani.exception.ObjectNotFoundException;
 import com.iliev.domani.model.dto.AddProductDto;
 import com.iliev.domani.model.entity.CategoryEntity;
 import com.iliev.domani.model.entity.ProductEntity;
+import com.iliev.domani.model.enums.CategoryNameEnum;
 import com.iliev.domani.model.view.ProductView;
 import com.iliev.domani.repository.CategoryRepository;
 import com.iliev.domani.repository.ProductRepository;
@@ -43,6 +44,13 @@ public class ProductService {
         return productRepository.findAllByOrderByCategory_NameAscNameAsc()
                 .stream()
                 .map(productEntity -> modelMapper.map(productEntity, ProductView.class))
+                .toList();
+    }
+
+    public List<ProductView> getAllProductsByCategory (CategoryNameEnum name) {
+        return productRepository.findAllByCategory_Name(name)
+                .stream()
+                .map(productEntity -> modelMapper.map(productEntity,ProductView.class))
                 .toList();
     }
 }
