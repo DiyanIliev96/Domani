@@ -1,7 +1,9 @@
 package com.iliev.domani.config;
 
 import com.iliev.domani.model.dto.EditUserDto;
+import com.iliev.domani.model.entity.CategoryEntity;
 import com.iliev.domani.model.entity.UserEntity;
+import com.iliev.domani.model.enums.CategoryNameEnum;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -26,6 +28,12 @@ public class AppConfig {
             }
         });
 
+        modelMapper.addConverter(new Converter<CategoryEntity, CategoryNameEnum>() {
+            @Override
+            public CategoryNameEnum convert(MappingContext<CategoryEntity, CategoryNameEnum> mappingContext) {
+                return mappingContext.getSource().getName();
+            }
+        });
         return modelMapper;
     }
 }

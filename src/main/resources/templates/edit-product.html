@@ -14,8 +14,8 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Add Menu Item</h2>
-            <form id="addMenuItemForm" th:object="${editProduct}" th:action="@{/admin/menu/edit/{id}(id=*{editProduct.productId})}"
+            <h2 class="card-title text-center">Edit Menu Item</h2>
+            <form id="addMenuItemForm" th:object="${editProduct}" th:action="@{/admin/menu/edit/{id}(id=*{productId})}"
                   th:method="patch" enctype="multipart/form-data">
 
                 <div class="form-group">
@@ -75,7 +75,7 @@
                            class="form-control"
                            id="itemPrice"
                            placeholder="Enter item price"
-                           required
+
                            th:field="*{price}"
                            name="price"
                            th:errorclass="is-invalid">
@@ -97,6 +97,9 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                <a th:href="@{/admin/menu/management}" class="btn btn-primary btn-block">
+                    Cancel
+                </a>
             </form>
         </div>
     </div>

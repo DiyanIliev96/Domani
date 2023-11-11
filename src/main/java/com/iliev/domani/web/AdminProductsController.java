@@ -1,6 +1,7 @@
 package com.iliev.domani.web;
 
 import com.iliev.domani.model.dto.AddProductDto;
+import com.iliev.domani.model.dto.EditProductDto;
 import com.iliev.domani.model.view.ProductView;
 import com.iliev.domani.service.ProductService;
 import jakarta.validation.Valid;
@@ -59,6 +60,31 @@ public class AdminProductsController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     private String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+        return "redirect:/admin/menu/management";
+    }
+
+    @GetMapping("/menu/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    private String getEdit(@PathVariable Long id,Model model) {
+        if (!model.containsAttribute("editProduct")) {
+            EditProductDto productToEdit = productService.getProductToEdit(id);
+            model.addAttribute("editProduct",productToEdit);
+        }
+        return "edit-product";
+    }
+
+    @PatchMapping("/menu/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    private String doEdit(@Valid EditProductDto editProductDto,BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,@PathVariable String id) throws IOException {
+        if (bindingResult.hasErrors()) {
+            editProductDto.setProductId(Long.parseLong(id));
+            redirectAttributes.addFlashAttribute("editProduct",editProductDto);
+            redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "editProduct",bindingResult);
+            return "redirect:/admin/menu/edit/" + id;
+        }
+
+        productService.editProduct(id,editProductDto);
         return "redirect:/admin/menu/management";
     }
 }

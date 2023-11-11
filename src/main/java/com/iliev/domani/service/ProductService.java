@@ -2,6 +2,7 @@ package com.iliev.domani.service;
 
 import com.iliev.domani.exception.ObjectNotFoundException;
 import com.iliev.domani.model.dto.AddProductDto;
+import com.iliev.domani.model.dto.EditProductDto;
 import com.iliev.domani.model.entity.CategoryEntity;
 import com.iliev.domani.model.entity.ProductEntity;
 import com.iliev.domani.model.enums.CategoryNameEnum;
@@ -56,5 +57,33 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public EditProductDto getProductToEdit(Long id) {
+        return productRepository.findById(id).map(p -> modelMapper.map(p, EditProductDto.class))
+                .orElseThrow(() -> new ObjectNotFoundException("Product with id:" + id + " not found"));
+    }
+
+    public void editProduct(String id, EditProductDto editProductDto) throws IOException {
+        ProductEntity productEntity = productRepository.findById(Long.parseLong(id)).orElseThrow();
+        if (!productEntity.getName().equals(editProductDto.getName())) {
+            productEntity.setName(editProductDto.getName());
+        }
+        if (!productEntity.getCategory().getName().equals(editProductDto.getCategory())) {
+            CategoryEntity newProductCategory = categoryRepository.findByName(editProductDto.getCategory())
+                    .orElseThrow();
+            productEntity.setCategory(newProductCategory);
+        }
+        if (!productEntity.getDescription().equals(editProductDto.getDescription())) {
+            productEntity.setDescription(editProductDto.getDescription());
+        }
+        if (productEntity.getPrice().compareTo(editProductDto.getPrice()) != 0) {
+            productEntity.setPrice(editProductDto.getPrice());
+        }
+        if (!editProductDto.getImage().isEmpty()) {
+            String newProductImageUrl = cloudinaryService.uploadImage(editProductDto.getImage());
+            productEntity.setImageUrl(newProductImageUrl);
+        }
+        productRepository.save(productEntity);
     }
 }

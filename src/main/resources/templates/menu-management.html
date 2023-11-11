@@ -37,8 +37,9 @@
                 <td th:text="${product.description}">Product description</td>
                 <td th:text="|$ ${product.price}|">Product price</td>
                 <td>
+                    <a th:href="@{/admin/menu/edit/{id}(id=*{product.productId})}">
                     <button class="btn btn-info btn-sm btn-action edit">Edit</button>
-
+                    </a>
                     <form th:action="@{/admin/menu/delete/{id}(id=*{product.productId})}"
                     th:method="delete">
                     <button class="btn btn-danger btn-sm btn-action delete" type="submit">Delete</button>
