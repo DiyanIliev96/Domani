@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Menu Item</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/add-menu-item.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center">Add Menu Item</h2>
+            <form id="addMenuItemForm" th:object="${editProduct}" th:action="@{/admin/menu/edit/{id}(id=*{editProduct.productId})}"
+                  th:method="patch" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label for="itemName">Item Name</label>
+                    <input type="text"
+                           class="form-control"
+                           id="itemName"
+                           name="name"
+                           placeholder="Enter item name"
+                           required
+                           th:field="*{name}"
+                           th:errorclass="is-invalid">
+                    <small class="invalid-feedback errors alert text-danger" th:if="${#fields.hasErrors('name')}"
+                    >Product name cannot be blank and must be between 2 and 100
+                        characters!</small>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="itemCategory">Category</label>
+                    <select class="form-control"
+                            name="category"
+                            th:field="*{category}"
+                            id="itemCategory"
+                            required
+                            th:errorclass="is-invalid">
+                        <option value="">Select a category</option>
+                        <option th:each="cat : ${T(com.iliev.domani.model.enums.CategoryNameEnum).values()}"
+                                th:text="${cat}"
+                                th:value="${cat}"
+                                th:selected="${cat}==*{category}">Breakfast</option>
+                    </select>
+                    <small class="invalid-feedback errors alert text-danger" th:if="${#fields.hasErrors('category')}">
+                        You must select category!
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemDescription">Description</label>
+                    <textarea class="form-control"
+                              id="itemDescription"
+                              rows="3"
+                              placeholder="Enter item description"
+                              required
+                              th:field="*{description}"
+                              name="description" th:errorclass="is-invalid"></textarea>
+                    <small class="invalid-feedback errors alert text-danger" th:if="${#fields.hasErrors('description')}">
+                        Description cannot be blank!
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemPrice">Price</label>
+                    <input type="number"
+                           min="0"
+                           step="0.01"
+                           class="form-control"
+                           id="itemPrice"
+                           placeholder="Enter item price"
+                           required
+                           th:field="*{price}"
+                           name="price"
+                           th:errorclass="is-invalid">
+                    <small class="invalid-feedback errors alert text-danger" th:each="err : ${#fields.errors('price')}"
+                           th:text="${err}">Price error</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemImage">Item Image</label>
+                    <input type="file"
+                           class="form-control-file"
+                           id="itemImage"
+                           th:field="*{image}"
+                           name="image"
+                           th:errorclass="is-invalid">
+                    <div class="text-info" th:if="${!#fields.hasErrors('image')}">Image size must be maximum 1MB.</div>
+                    <small class="invalid-feedback errors alert text-danger" th:each="err : ${#fields.errors('image')}"
+                           th:text="${err}">Image error</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
