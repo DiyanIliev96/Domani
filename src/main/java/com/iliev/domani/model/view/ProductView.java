@@ -2,6 +2,7 @@ package com.iliev.domani.model.view;
 
 public class ProductView {
 
+    private Long productId;
     private String name;
     private String price;
 
@@ -52,6 +53,15 @@ public class ProductView {
 
     public ProductView setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+        return this;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public ProductView setProductId(Long productId) {
+        this.productId = productId;
         return this;
     }
 }

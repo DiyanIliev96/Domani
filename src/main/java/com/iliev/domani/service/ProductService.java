@@ -53,4 +53,8 @@ public class ProductService {
                 .map(productEntity -> modelMapper.map(productEntity,ProductView.class))
                 .toList();
     }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 }

@@ -33,12 +33,17 @@
             <tr class="menu-item-row">
                 <td><img th:src="@{${product.imageUrl}}" alt="Menu Item" class="menu-item-img"></td>
                 <td th:text="${product.name}">Product name</td>
-                <td th:text="${product.categoryName}">Dessert</td>
-                <td th:text="${product.description}">New York Cheesecake with fresh strawberries and mint leaves</td>
-                <td th:text="|$ ${product.price}|">9.99</td>
+                <td th:text="${product.categoryName}">Product category</td>
+                <td th:text="${product.description}">Product description</td>
+                <td th:text="|$ ${product.price}|">Product price</td>
                 <td>
                     <button class="btn btn-info btn-sm btn-action edit">Edit</button>
-                    <button class="btn btn-danger btn-sm btn-action delete">Delete</button>
+
+                    <form th:action="@{/admin/menu/delete/{id}(id=*{product.productId})}"
+                    th:method="delete">
+                    <button class="btn btn-danger btn-sm btn-action delete" type="submit">Delete</button>
+                    </form>
+
                 </td>
             </tr>
         </tbody>
