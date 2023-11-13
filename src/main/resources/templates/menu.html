@@ -22,12 +22,12 @@
             <button class="btn btn-outline-dark" data-filter=".pizza">Pizza</button>
         </div>
         <div class="row menu-items">
-            <div class="col-md-4 menu-item breakfast">
-                <img src="/images/menu-item.png" class="menu-img" alt="Breakfast Item">
+            <div class="col-md-4 menu-item breakfast" th:each="breakfast : ${breakfastProducts}">
+                <img th:src="@{${breakfast.imageUrl}}" class="menu-img" alt="Breakfast Item">
                 <div class="menu-description">
-                    <h5>Breakfast Item Name</h5>
-                    <p>Description of the breakfast item.</p>
-                    <span class="price">8.00</span>
+                    <h5 th:text="${breakfast.name}">Breakfast Item Name</h5>
+                    <p th:text="${breakfast.description}">Description of the breakfast item.</p>
+                    <span class="price" th:text="${breakfast.price}">8.00</span>
                 </div>
             </div>
     
