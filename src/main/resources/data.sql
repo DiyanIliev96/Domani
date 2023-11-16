@@ -33,5 +33,18 @@ VALUES
     ('Wrap','2','6.2','Portable and easy-to-eat, filled with a variety of ingredients.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700134013/wdoqex3nqomc9wx58aft.jpg'),
     ('Salad','2','5','Healthy and refreshing, made with a variety of ingredients.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700134116/zbwytxzyk3fcvmpmqhjr.jpg'),
     ('Quinoa bowl','2','5.6','Trendy and nutritious, packed with protein and fiber.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700134235/zsx622bo3if97lf3mowz.jpg'),
-    ('Pasta salad','2','5.7','Pasta and vegetables tossed in a dressing.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700134460/vtqf13jbjhsw3r8ba64f.jpg');
+    ('Pasta salad','2','5.7','Pasta and vegetables tossed in a dressing.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700134460/vtqf13jbjhsw3r8ba64f.jpg'),
+
+    # Insert dinners
+
+    ('Spaghetti carbonara','3','10','Spaghetti tossed with a creamy sauce made with egg yolks, pancetta or guanciale, and pecorino Romano cheese.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700135637/esufb54pl48bs8j9rqbt.jpg'),
+    ('Lasagna','3','9','A hearty pasta dish made with layers of pasta sheets, meat sauce, béchamel sauce, and Parmesan cheese.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700135783/kl4jxkq8xoiy6kpckxcw.jpg'),
+    ('Chicken piccata','3','11','Chicken cutlets coated in a light flour batter and cooked in a lemon-caper sauce.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700135935/epuosfcfkpjmpvg1mlzc.jpg'),
+    ('Ossobuco','3','13','Braised veal shanks in a rich tomato sauce with gremolata.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700136239/gea5dls3rn2jtygy3gpk.jpg'),
+    ('Saltimbocca','3','14','Veal cutlets topped with prosciutto, sage, and a white wine sauce.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700136472/k9abdqbarqb8wqb5l9jp.jpg'),
+    ('Rissotto alla Milanese','3','8','A creamy risotto made with saffron, butter, and Parmesan cheese.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700136567/xr9ucrswsuw3jiz0bp2k.jpg'),
+    ('Cacio e pepe','3','9','A simple pasta dish made with pecorino Romano cheese, black pepper, and pasta water.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700136694/vf5yhnwdydwg2hh6ibt0.jpg'),
+    ('Pollo al forno','3','13','Roasted chicken with rosemary, garlic, and lemon.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700136927/qmkdyl54t6wkbn0p9sax.jpg'),
+    ('Pasta with pesto','3','11.5','Pasta tossed with a sauce made with basil, pine nuts, garlic, and Parmesan cheese.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700137014/aczzyyfrcbpikri01w0j.jpg'),
+    ('Bistecca alla Fiorentina','3','15','A thick, grilled T-bone steak seasoned with salt, pepper, and olive oil.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700137091/b8lovoohmbqca49csncy.jpg');
 
