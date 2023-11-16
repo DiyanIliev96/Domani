@@ -23,9 +23,11 @@ public class MenuController {
         List<ProductView> allLunchProducts = productService.getAllProductsByCategory(CategoryNameEnum.Lunch);
         List<ProductView> allPizzaProducts = productService.getAllProductsByCategory(CategoryNameEnum.Pizza);
         List<ProductView> allBreakfastProducts = productService.getAllProductsByCategory(CategoryNameEnum.Breakfast);
+        List<ProductView> allDinnerProducts = productService.getAllProductsByCategory(CategoryNameEnum.Dinner);
         model.addAttribute("lunchProducts",allLunchProducts);
         model.addAttribute("pizzaProducts",allPizzaProducts);
         model.addAttribute("breakfastProducts",allBreakfastProducts);
+        model.addAttribute("dinnerProducts",allDinnerProducts);
         return "menu";
     }
 }
