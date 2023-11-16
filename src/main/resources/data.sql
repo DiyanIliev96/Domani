@@ -46,5 +46,18 @@ VALUES
     ('Cacio e pepe','3','9','A simple pasta dish made with pecorino Romano cheese, black pepper, and pasta water.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700136694/vf5yhnwdydwg2hh6ibt0.jpg'),
     ('Pollo al forno','3','13','Roasted chicken with rosemary, garlic, and lemon.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700136927/qmkdyl54t6wkbn0p9sax.jpg'),
     ('Pasta with pesto','3','11.5','Pasta tossed with a sauce made with basil, pine nuts, garlic, and Parmesan cheese.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700137014/aczzyyfrcbpikri01w0j.jpg'),
-    ('Bistecca alla Fiorentina','3','15','A thick, grilled T-bone steak seasoned with salt, pepper, and olive oil.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700137091/b8lovoohmbqca49csncy.jpg');
+    ('Bistecca alla Fiorentina','3','15','A thick, grilled T-bone steak seasoned with salt, pepper, and olive oil.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700137091/b8lovoohmbqca49csncy.jpg'),
+
+    # Insert desserts
+
+    ('Chocolate Cake','4','4.5','Moist and rich chocolate cake layered with velvety chocolate ganache, a classic indulgence for chocolate lovers.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700137765/ecgu5okf7zvqcksrpxy3.jpg'),
+    ('Apple Pie','4','4','Flaky pie crust filled with sweet and spiced apple slices, often served warm and topped with a scoop of vanilla ice cream.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700137856/ril8zfv7oghmxo7jc5ee.jpg'),
+    ('Cheesecake','4','5.6','Smooth and creamy dessert made with a sweetened cream cheese filling, usually set on a graham cracker crust and topped with various toppings.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700137957/z7gwgcol4j55h6vjaqly.jpg'),
+    ('Tiramisu','4','5.3','Italian delight featuring layers of coffee-soaked ladyfingers and mascarpone cheese, dusted with cocoa powder for a decadent finish.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700138049/gzugkigen57ifx2ymtjm.jpg'),
+    ('Ice Cream Sundae','4','6','A delightful combination of ice cream, syrup, whipped cream, and various toppings such as nuts, cherries, and sprinkles.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700138122/dzxujcw3iea4m640gi5r.jpg'),
+    ('Strawberry Shortcake','4','5','Light and fluffy shortcake biscuits layered with fresh strawberries and whipped cream, a delightful summer dessert.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700138201/qc6kqtcic0i7mweprerr.jpg'),
+    ('Creme Brulee','4','4.5','A creamy custard dessert topped with a layer of caramelized sugar, creating a satisfying contrast of textures.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700138279/veoai39dlihfrp8glibc.jpg'),
+    ('Key Lime Pie','4','5.7','Tangy and sweet pie made with key lime juice and a crumbly graham cracker crust, often served chilled for a refreshing taste.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700138348/fujw0ajt8qrt6hvujrdi.jpg'),
+    ('Molten Lava Cake','4','6','Individual chocolate cakes with a gooey, molten center, creating a luscious and decadent experience for chocolate enthusiasts.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700138429/h57ju9qrmtfjuwqeqcrk.jpg'),
+    ('Panna Cotta','4','5.5','An Italian dessert featuring sweetened cream set with gelatin and often flavored with vanilla, served with a fruity or caramel topping.','http://res.cloudinary.com/dqboyjgbo/image/upload/v1700138515/qwuzi1yacm7l9idrzgj6.jpg');
 
