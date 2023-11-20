@@ -22,7 +22,7 @@ public class AppSecurityConfig {
        // http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                    .requestMatchers("/","/menu").permitAll()
+                    .requestMatchers("/","/menu","/booking").permitAll()
                     .requestMatchers("/user/login","/user/register").anonymous()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated();
