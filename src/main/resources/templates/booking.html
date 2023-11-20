@@ -35,7 +35,7 @@
 
         <div class="form-group">
           <label for="phone">Phone Number:</label>
-          <input type="tel"
+          <input type="number"
                  class="form-control"
                  id="phone"
                  placeholder="Enter your phone number"
@@ -43,7 +43,7 @@
                  th:field="*{phoneNumber}"
                  th:errorclass="is-invalid"
                  required>
-          <div class="invalid-feedback errors alert alert-danger" th:if="${#fields.hasErrors('phoneNumber')}">
+          <div class="invalid-feedback errors alert alert-danger" th:each="err : ${#fields.errors('phoneNumber')}" th:text="${err}">
             Phone number cannot be null and should be in number format!</div>
 
         </div>
@@ -75,7 +75,8 @@
                  th:field="*{numberOfGuests}"
                  th:errorclass="is-invalid"
                  required>
-          <div class="invalid-feedback errors alert alert-danger" th:if="${#fields.hasErrors('numberOfGuests')}">Number of guests cannot be null and must be number format.</div>
+          <div class="invalid-feedback errors alert alert-danger"
+          th:each="err : ${#fields.errors('numberOfGuests')}" th:text="${err}">Number of guests cannot be null and must be number format.</div>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block">Book Now</button>
