@@ -10,16 +10,17 @@ public class BookingDto {
     @NotBlank
     @Size(min = 4,max = 30)
     private String fullName;
-    @NumberFormat
-    @NotNull
+    @NumberFormat(pattern = "^-?\\d+$")
+    @NotNull(message = "Phone number cannot be null!")
     private Long phoneNumber;
     @FutureOrPresent(message = "Date and time cannot be in past!")
     @NotNull(message = "Date and time cannot be empty!")
     @DateTimeFormat
     private LocalDateTime bookingDateTime;
 
-    @NumberFormat
-    @NotNull
+    @NumberFormat(pattern = "^-?\\d+$")
+    @NotNull(message = "Number of guests cannot be null!")
+    @Positive(message = "Number of guests must be positive!")
     private int numberOfGuests;
 
     public BookingDto() {
