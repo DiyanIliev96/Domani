@@ -38,4 +38,9 @@ public class BookingController {
         bookingService.createBooking(bookingDto);
         return "redirect:/";
     }
+
+    @GetMapping("/booking-friday")
+    public String getBookingFriday() {
+        return "booking-friday";
+    }
 }
