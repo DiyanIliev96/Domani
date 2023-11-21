@@ -34,11 +34,6 @@ public class BookingService {
                     view.setBookingDateTime(view.getBookingDateTime().replace("T"," at: "));
                     return view;
                 }).toList();
-
-
-
-
-
     }
 
     public void deleteById(Long id) {
