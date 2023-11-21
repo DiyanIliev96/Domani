@@ -21,6 +21,8 @@ public class BookingDto {
     @NumberFormat(pattern = "^-?\\d+$")
     @NotNull(message = "Number of guests cannot be null!")
     @Positive(message = "Number of guests must be positive!")
+    @Min(value = 1,message = "Number of guests cannot be less then 1!")
+    @Max(value = 20,message = "Number of guests cannot be more then 20! Contact us directly.")
     private int numberOfGuests;
 
     public BookingDto() {
