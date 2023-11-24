@@ -21,7 +21,7 @@
 
 <body class="text-center">
 
-<th:block th:insert="~{/fragments/navbar}"></th:block>
+<th:block th:insert="~{fragments/navbar}"></th:block>
 <form class="form-signin" id="registrationForm" th:action="@{/user/register}" th:method="POST" th:object="${registerModel}">
 
     <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
@@ -86,18 +86,8 @@
     </div>
 </form>
 
-<!--<script type="text/javascript">-->
-<!--    document.getElementById('registrationForm').addEventListener('submit', function(e) {-->
-<!--        var password = document.getElementById('inputPassword').value;-->
-<!--        var confirmPassword = document.getElementById('inputConfirmPassword').value;-->
-
-<!--        if (password !== confirmPassword) {-->
-<!--            e.preventDefault();-->
-<!--            document.getElementById('passwordError').style.display = 'block';-->
-<!--        } else {-->
-<!--            document.getElementById('passwordError').style.display = 'none';-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

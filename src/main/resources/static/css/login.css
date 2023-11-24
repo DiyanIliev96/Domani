@@ -1,9 +1,23 @@
 html,
 body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
-
-body {
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  filter: blur(3px);
+  z-index: -1;
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -15,19 +29,12 @@ body {
   justify-content: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
-  background-image: url("/images/background.jpg");
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  backdrop-filter: blur(5px);
-  padding: 167px;
 }
 
 .form-signin {
   width: 100%;
   max-width: 330px;
-  padding: 15px;
+  padding-top: 75px;
   margin: 0 auto;
 }
 .form-signin .checkbox {

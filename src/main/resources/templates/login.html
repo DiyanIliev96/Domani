@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
   <body class="text-center">
-  <th:block th:insert="~{/fragments/navbar}"></th:block>
+  <th:block th:replace="~{fragments/navbar}"></th:block>
 
 
     <form class="form-signin" th:action="@{/user/login}" th:method="post">
@@ -45,5 +45,9 @@
         <a th:href="@{/user/register}">Don't have an account? Register</a>
       </div>
     </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </body>
 </html>
