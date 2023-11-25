@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Restaurant Booking</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="text-center mb-4">Restaurant booking edit</h2>
+
+      <!-- Booking Form -->
+      <form th:action="@{/admin/bookings/edit/{id}(id=*{bookingId})}" th:method="patch" th:object="${bookingToEdit}">
+        <div class="form-group">
+          <label for="name">Full name:</label>
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="fullName"
+                 placeholder="Enter your full name"
+                 th:field="*{fullName}"
+                 th:value="*{fullName}"
+                 th:errorclass="is-invalid"
+                 required>
+          <div class="invalid-feedback errors alert alert-danger" th:if="${#fields.hasErrors('fullName')}">Full name must be between 4 and 30 characters!</div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="number"
+                 class="form-control"
+                 id="phone"
+                 placeholder="Enter your phone number"
+                 name="phoneNumber"
+                 th:field="*{phoneNumber}"
+                 th:value="*{phoneNumber}"
+                 th:errorclass="is-invalid"
+                 required>
+          <div class="invalid-feedback errors alert alert-danger" th:each="err : ${#fields.errors('phoneNumber')}" th:text="${err}">
+            Phone number cannot be null and should be in number format!</div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="bookingDateTime">Date:</label>
+          <input type="datetime-local"
+                 class="form-control"
+                 id="bookingDateTime"
+                 name="bookingDateTime"
+                 th:field="*{bookingDateTime}"
+                 th:errorclass="is-invalid"
+                 >
+          <script th:inline="javascript">
+            /*<![CDATA[*/
+            var bookingDateTime = /*[[${bookingToEdit.bookingDateTime}]]*/ null;
+            if (bookingDateTime !== null) {
+              // Convert the date to ISO format (yyyy-MM-ddTHH:mm)
+              bookingDateTime = new Date(bookingDateTime).toISOString().slice(0, 16);
+              document.getElementById('bookingDateTime').value = bookingDateTime;
+            }
+            /*]]>*/
+          </script>
+          <div class="invalid-feedback errors alert alert-danger"
+               th:each="err : ${#fields.errors('bookingDateTime')}"
+          th:text="${err}">
+            Date and time error</div>
+
+        </div>
+
+
+        <div class="form-group">
+          <label for="guests">Number of Guests:</label>
+          <input type="number"
+                 class="form-control"
+                 id="guests"
+                 min="1"
+                 name="numberOfGuests"
+                 th:field="*{numberOfGuests}"
+                 th:value="*{numberOfGuests}"
+                 th:errorclass="is-invalid"
+                 required>
+          <div class="invalid-feedback errors alert alert-danger"
+          th:each="err : ${#fields.errors('numberOfGuests')}" th:text="${err}">Number of guests cannot be null and must be number format.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Save</button>
+
+          <a class="btn btn-primary btn-block" th:href="@{/admin/bookings}">Cancel</a>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

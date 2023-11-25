@@ -7,6 +7,7 @@ import org.springframework.format.annotation.NumberFormat;
 import java.time.LocalDateTime;
 
 public class BookingDto {
+    private Long bookingId;
     @NotBlank
     @Size(min = 4,max = 30)
     private String fullName;
@@ -62,5 +63,37 @@ public class BookingDto {
     public BookingDto setNumberOfGuests(int numberOfGuests) {
         this.numberOfGuests = numberOfGuests;
         return this;
+    }
+
+    public Long getBookingId() {
+        return bookingId;
+    }
+
+    public BookingDto setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BookingDto that)) return false;
+
+        if (getNumberOfGuests() != that.getNumberOfGuests()) return false;
+        if (!getFullName().equals(that.getFullName())) return false;
+        if (!getPhoneNumber().equals(that.getPhoneNumber())) return false;
+        if (getBookingDateTime() != null) {
+            return getBookingDateTime().equals(that.getBookingDateTime());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getFullName().hashCode();
+        result = 31 * result + getPhoneNumber().hashCode();
+        result = 31 * result + getBookingDateTime().hashCode();
+        result = 31 * result + getNumberOfGuests();
+        return result;
     }
 }

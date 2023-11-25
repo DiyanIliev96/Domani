@@ -29,7 +29,7 @@
       <td th:text="${booking.getBookingDateTime()}">2023-01-02 6:30 PM</td>
       <td th:text="${booking.getNumberOfGuests()}">2</td>
       <td>
-        <a href="#">
+        <a th:href="@{/admin/bookings/edit/{id}(id=*{bookingId})}">
           <button type="submit" class="btn btn-info btn-sm">Edit</button>
         </a>
         <form

@@ -1,5 +1,6 @@
 package com.iliev.domani.service;
 
+import com.iliev.domani.exception.ObjectNotFoundException;
 import com.iliev.domani.model.dto.BookingDto;
 import com.iliev.domani.model.entity.BookingEntity;
 import com.iliev.domani.model.view.BookingView;
@@ -38,5 +39,32 @@ public class BookingService {
 
     public void deleteById(Long id) {
         bookingRepository.deleteById(id);
+    }
+
+    public BookingDto getBookingToEdit(Long id) {
+        return bookingRepository.findById(id).map(b -> modelMapper.map(b,BookingDto.class))
+                .orElseThrow(() -> new ObjectNotFoundException("Booking with " + id + " not found."));
+    }
+
+    public void doEditBooking(Long id, BookingDto editedBookingDto) {
+        BookingEntity bookingEntity = bookingRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Booking with " + id + " not found."));
+
+       if (!bookingEntity.getFullName().equals(editedBookingDto.getFullName())) {
+           bookingEntity.setFullName(editedBookingDto.getFullName());
+       }
+
+       if (!bookingEntity.getPhoneNumber().equals(editedBookingDto.getPhoneNumber().toString())) {
+           bookingEntity.setPhoneNumber(editedBookingDto.getPhoneNumber().toString());
+       }
+
+       if (!bookingEntity.getBookingDateTime().equals(editedBookingDto.getBookingDateTime())) {
+           bookingEntity.setBookingDateTime(editedBookingDto.getBookingDateTime());
+       }
+
+       if (bookingEntity.getNumberOfGuests() != editedBookingDto.getNumberOfGuests()) {
+           bookingEntity.setNumberOfGuests(editedBookingDto.getNumberOfGuests());
+       }
+       bookingRepository.save(bookingEntity);
     }
 }
