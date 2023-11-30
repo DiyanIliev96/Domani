@@ -76,7 +76,7 @@ public class AdminUsersController {
         if (!model.containsAttribute("editUser")) {
             model.addAttribute("editUser",userService.findById(id));
         }
-        return "edit-profile";
+        return "edit-user";
     }
 
     @PatchMapping("/users/edit/{id}")
