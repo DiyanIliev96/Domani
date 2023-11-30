@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link href="/css/login.css" rel="stylesheet">
+  <link href="/css/edit-profile.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+  <h1>Edit Profile</h1>
+</header>
+
+<section>
+  <i class="fa fa-user-circle fa-8x" aria-hidden="false"></i>
+  <form th:object="${editProfile}" th:method="patch" th:action="@{/profile/edit}">
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" name="fullName" th:value="*{fullName}" th:field="*{fullName}" th:errorclass="is-invalid">
+    <div class="text-danger" th:if="${wrong_fullName}">
+      Full name must be between 5 and 30 characters!
+    </div>
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" th:value="*{email}" th:field="*{email}" th:errorclass="is-invalid">
+    <div class="text-danger" th:if="${wrong_email}">
+      Email must be valid and unique!
+    </div>
+    <button type="submit">Save Changes</button>
+  </form>
+  <a href="/">Cancel and back to home page</a>
+</section>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
