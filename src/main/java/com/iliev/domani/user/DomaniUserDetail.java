@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class DomaniUserDetail implements UserDetails {
+    private final Long id;
 
     private final String fullName;
     private final String email;
@@ -13,7 +14,8 @@ public class DomaniUserDetail implements UserDetails {
 
     private final Collection<GrantedAuthority> authorities;
 
-    public DomaniUserDetail(String fullName, String email, String password, Collection<GrantedAuthority> authorities) {
+    public DomaniUserDetail(Long id, String fullName, String email, String password, Collection<GrantedAuthority> authorities) {
+        this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -61,5 +63,9 @@ public class DomaniUserDetail implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

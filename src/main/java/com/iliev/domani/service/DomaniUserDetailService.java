@@ -26,7 +26,7 @@ public class DomaniUserDetailService implements UserDetailsService {
     }
 
     private UserDetails map(UserEntity user) {
-        return new DomaniUserDetail(user.getFullName(),
+        return new DomaniUserDetail(user.getId(), user.getFullName(),
                 user.getEmail(),
                 user.getPassword(),
                 user.getRoles().stream().map(this::map)
