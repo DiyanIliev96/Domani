@@ -14,6 +14,7 @@ import com.iliev.domani.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -118,4 +119,17 @@ public class UserService {
         }
         userRepository.save(userToEdit);
     }
+
+    public void doEditProfile(Long id, EditUserDto editUserDto) {
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found."));
+        userEntity.setFullName(editUserDto.getFullName());
+        userEntity.setEmail(editUserDto.getEmail());
+        userRepository.save(userEntity);
+    }
+
+    public UserView getUserView(Long id) {
+        return userRepository.findById(id).map(u -> modelMapper.map(u,UserView.class))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+    }
+
 }
