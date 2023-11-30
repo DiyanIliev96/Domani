@@ -1,24 +1,35 @@
 package com.iliev.domani.web;
 
 import com.iliev.domani.model.dto.EditUserDto;
+import com.iliev.domani.model.view.ProductView;
+import com.iliev.domani.service.ProductService;
 import com.iliev.domani.service.UserService;
 import com.iliev.domani.user.DomaniUserDetail;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
 
     private final UserService userService;
+    private final ProductService productService;
 
-    public HomeController(UserService userService) {
+    public HomeController(UserService userService, ProductService productService) {
         this.userService = userService;
+        this.productService = productService;
     }
 
 
@@ -69,4 +80,15 @@ public class HomeController {
         }
         return "redirect:/profile";
     }
+
+    @RequestMapping("/specialties")
+    @ResponseBody
+    public ResponseEntity<List<ProductView>> getSpecialties() {
+        List<ProductView> randomSpecialties = productService.getRandomSpecialties();
+        if (randomSpecialties.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(randomSpecialties);
+    }
+
 }
