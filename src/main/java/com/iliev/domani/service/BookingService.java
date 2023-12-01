@@ -6,8 +6,10 @@ import com.iliev.domani.model.entity.BookingEntity;
 import com.iliev.domani.model.view.BookingView;
 import com.iliev.domani.repository.BookingRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -66,5 +68,11 @@ public class BookingService {
            bookingEntity.setNumberOfGuests(editedBookingDto.getNumberOfGuests());
        }
        bookingRepository.save(bookingEntity);
+    }
+    @Scheduled(cron = "0 0/20 * 1/1 * ?")
+    private void deleteExpiredBookings() {
+        List<BookingEntity> allByBookingDateTimeBefore = bookingRepository
+                .findAllByBookingDateTimeBefore(LocalDateTime.now());
+        bookingRepository.deleteAll(allByBookingDateTimeBefore);
     }
 }
