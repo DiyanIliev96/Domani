@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -90,10 +88,16 @@ public class ProductService {
     }
 
     public List<ProductView> getRandomSpecialties() {
-            return productRepository.findRandomProducts()
-                    .orElseThrow(() -> new ObjectNotFoundException("Products not found!"))
-                    .stream()
-                    .map(p -> modelMapper.map(p, ProductView.class))
-                    .toList();
+
+        List<ProductView> productsList = productRepository.findRandomProducts()
+                .orElseThrow(() -> new ObjectNotFoundException("List with ProductEntities not found!"))
+                .stream().map(p -> modelMapper.map(p,ProductView.class)).toList();
+
+        if (productsList.isEmpty()) {
+            throw new ObjectNotFoundException("Products not found in the list!");
+        } else {
+            return productsList;
+        }
+
     }
 }
