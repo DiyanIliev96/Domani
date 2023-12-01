@@ -22,7 +22,7 @@ public class AppSecurityConfig {
        // http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                    .requestMatchers("/","/menu","/booking","/booking-friday","/specialties").permitAll()
+                    .requestMatchers("/","/menu","/booking","/booking-friday","/specialties","/error/**").permitAll()
                     .requestMatchers("/user/login","/user/register").anonymous()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated();
@@ -54,4 +54,5 @@ public class AppSecurityConfig {
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return new DomaniUserDetailService(userRepository);
     }
+
 }
