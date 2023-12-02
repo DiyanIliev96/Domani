@@ -33,11 +33,14 @@ public class UserService {
     private final RoleRepository roleRepository;
 
     private final ModelMapper modelMapper;
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ModelMapper modelMapper) {
+
+    private final EmailService emailService;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ModelMapper modelMapper, EmailService emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
+        this.emailService = emailService;
     }
 
 
@@ -68,6 +71,7 @@ public class UserService {
         newUser.setRoles(Set.of(roleRepository.findByName(RoleNameEnum.USER)
                 .orElseThrow(() ->new ObjectNotFoundException("Role not found!"))));
         userRepository.save(newUser);
+        emailService.sendRegistrationEmail(newUser.getEmail(),newUser.getFullName());
     }
 
     public Page<UserView> getAllUsers(Pageable pageable) {
