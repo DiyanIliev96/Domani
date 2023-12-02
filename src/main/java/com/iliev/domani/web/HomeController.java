@@ -11,10 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -81,6 +78,7 @@ public class HomeController {
 
     @RequestMapping("/specialties")
     @ResponseBody
+    @CrossOrigin("*")
     public ResponseEntity<List<ProductView>> getSpecialties() {
         List<ProductView> randomSpecialties = productService.getRandomSpecialties();
         if (randomSpecialties.isEmpty()) {
