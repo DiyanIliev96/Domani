@@ -14,14 +14,16 @@ import com.iliev.domani.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -35,12 +37,15 @@ public class UserService {
     private final ModelMapper modelMapper;
 
     private final EmailService emailService;
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ModelMapper modelMapper, EmailService emailService) {
+
+    private final UserDetailsService userDetailsService;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ModelMapper modelMapper, EmailService emailService, UserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
         this.emailService = emailService;
+        this.userDetailsService = userDetailsService;
     }
 
 
@@ -136,4 +141,29 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
     }
 
+    public void createUserIfNotExists(String userEmail,String fullName) {
+        var userOpt = this.userRepository.findByEmail(userEmail);
+        RoleEntity roleUser = roleRepository.findByName(RoleNameEnum.USER)
+                .orElseThrow(() -> new ObjectNotFoundException("Role doesn't exists"));
+        if (userOpt.isEmpty()) {
+            var newUser = new UserEntity()
+                    .setEmail(userEmail)
+                    .setPassword(null)
+                    .setRoles(Set.of(roleUser))
+                    .setFullName(fullName);
+            userRepository.save(newUser);
+        }
+        login(userEmail);
+    }
+
+    public void login(String userEmail) {
+        UserDetails userDetails = userDetailsService
+                .loadUserByUsername(userEmail);
+
+        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails,
+                userDetails.getPassword(),
+                userDetails.getAuthorities());
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
 }
