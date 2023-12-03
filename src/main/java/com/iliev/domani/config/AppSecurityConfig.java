@@ -2,6 +2,7 @@ package com.iliev.domani.config;
 
 import com.iliev.domani.repository.UserRepository;
 import com.iliev.domani.service.DomaniUserDetailService;
+import com.iliev.domani.service.OAuthSuccessHandler;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,7 @@ public class AppSecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, OAuthSuccessHandler oAuthSuccessHandler) throws Exception {
        // http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
@@ -35,7 +36,10 @@ public class AppSecurityConfig {
             login.successForwardUrl("/user/login-success").permitAll()
                     .failureUrl("/user/login-failed");
         });
-
+        http.oauth2Login(oauth -> {
+            oauth.loginPage("/user/login")
+                    .successHandler(oAuthSuccessHandler);
+        });
         http.logout(logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                     .logoutSuccessUrl("/")
