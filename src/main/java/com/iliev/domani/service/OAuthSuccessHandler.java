@@ -31,6 +31,7 @@ public class OAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             String fullName = oAuth2AuthenticationToken.getPrincipal()
                             .getAttribute("name").toString();
             userService.createUserIfNotExists(userEmail,fullName);
+            userService.login(userEmail);
         }
 
         super.onAuthenticationSuccess(request, response, authentication);

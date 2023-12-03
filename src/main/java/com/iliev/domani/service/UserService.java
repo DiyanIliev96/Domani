@@ -152,8 +152,8 @@ public class UserService {
                     .setRoles(Set.of(roleUser))
                     .setFullName(fullName);
             userRepository.save(newUser);
+            emailService.sendRegistrationEmail(userEmail,fullName);
         }
-        login(userEmail);
     }
 
     public void login(String userEmail) {
