@@ -25,6 +25,10 @@
 
       <i class="fa fa-user-circle fa-8x" aria-hidden="true"></i>
       <h1 class="h3 mb-3 font-weight-normal">Please Log in</h1>
+      <a th:href="@{/oauth2/authorization/facebook}" class="btn btn-block btn-outline-primary">
+      <i class="fab fa-facebook"></i>
+        Login with facebook
+      </a>
       <p th:if="${bad_credentials}" class="errors alert text-danger" >Incorrect username or password!</p>
       <div class="col-auto">
       <label for="inputEmail" class="sr-only">Email address</label>
