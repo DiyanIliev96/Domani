@@ -7,68 +7,70 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="/css/menu.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
+    <th:block th:insert="~{fragments/navbar}"></th:block>
     <div class="container menu-section">
         <h1 class="menu-title">Our Menu</h1>
         <div class="menu-categories">
-            <button class="btn btn-warning active" data-filter="*">All</button>
+            <button class="btn btn-dark active" data-filter="*">All</button>
             <button class="btn btn-outline-dark" data-filter=".breakfast">Breakfast</button>
             <button class="btn btn-outline-dark" data-filter=".lunch">Lunch</button>
             <button class="btn btn-outline-dark" data-filter=".dinner">Dinner</button>
             <button class="btn btn-outline-dark" data-filter=".dessert">Dessert</button>
             <button class="btn btn-outline-dark" data-filter=".pizza">Pizza</button>
         </div>
-        <div class="row menu-items">
-            <div class="col-md-4 menu-item breakfast" th:each="breakfast : ${breakfastProducts}">
+        <section class="special-menus">
+        <div class="menu-items">
+            <div class="menu-item breakfast" th:each="breakfast : ${breakfastProducts}">
                 <img th:src="@{${breakfast.imageUrl}}" class="menu-img" alt="Breakfast Item">
-                <div class="menu-description">
+                <div class="menu-info">
                     <h5 th:text="${breakfast.name}">Breakfast Item Name</h5>
-                    <p th:text="${breakfast.description}">Description of the breakfast item.</p>
                     <span class="price" th:text="${breakfast.price}">8.00</span>
+                    <p th:text="${breakfast.description}">Description of the breakfast item.</p>
                 </div>
             </div>
     
-            <div class="col-md-4 menu-item lunch" th:each="lunch : ${lunchProducts}">
+            <div class="menu-item lunch" th:each="lunch : ${lunchProducts}">
                 <img th:src="@{${lunch.getImageUrl()}}" class="menu-img" alt="Lunch Item">
-                <div class="menu-description">
+                <div class="menu-info">
                     <h5 th:text="${lunch.getName()}">Lunch Item Name</h5>
-                    <p th:text="${lunch.getDescription()}">Description of the lunch item.</p>
                     <span class="price" th:text="${lunch.getPrice()}">12.00</span>
+                    <p th:text="${lunch.getDescription()}">Description of the lunch item.</p>
                 </div>
             </div>
     
-            <div class="col-md-4 menu-item dinner" th:each="dinner : ${dinnerProducts}">
+            <div class="menu-item dinner" th:each="dinner : ${dinnerProducts}">
                 <img th:src="@{${dinner.getImageUrl()}}" class="menu-img" alt="Dinner Item">
-                <div class="menu-description">
+                <div class="menu-info">
                     <h5 th:text="${dinner.getName()}">Dinner Item Name</h5>
-                    <p th:text="${dinner.getDescription()}">Description of the dinner item.</p>
                     <span class="price" th:text="${dinner.getPrice()}">15.00</span>
+                    <p th:text="${dinner.getDescription()}">Description of the dinner item.</p>
                 </div>
             </div>
     
-            <div class="col-md-4 menu-item dessert" th:each="dessert : ${dessertProducts}">
+            <div class="menu-item dessert" th:each="dessert : ${dessertProducts}">
                 <img th:src="@{${dessert.getImageUrl()}}" class="menu-img" alt="Dessert Item">
-                <div class="menu-description">
+                <div class="menu-info">
                     <h5 th:text="${dessert.getName()}">Dessert Item Name</h5>
-                    <p th:text="${dessert.getDescription()}">Description of the dessert item.</p>
                     <span class="price" th:text="${dessert.getPrice()}">6.00</span>
+                    <p th:text="${dessert.getDescription()}">Description of the dessert item.</p>
                 </div>
             </div>
 
-            <div class="col-md-4 menu-item pizza" th:each="pizza : ${pizzaProducts}">
+            <div class="menu-item pizza" th:each="pizza : ${pizzaProducts}">
                 <img th:src="@{${pizza.getImageUrl()}}" class="menu-img" alt="Pizza Item">
-                <div class="menu-description">
+                <div class="menu-info">
                     <h5 th:text="${pizza.getName()}">Pizza Item Name</h5>
-                    <p th:text="${pizza.getDescription()}">Description of the dessert item.</p>
                     <span class="price" th:text="${pizza.getPrice()}">12.00</span>
+                    <p th:text="${pizza.getDescription()}">Description of the dessert item.</p>
                 </div>
             </div>
         </div>
+        </section>
     </div>
-    
+
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
