@@ -10,9 +10,10 @@
 <link rel="stylesheet" href="/css/menu-management.css">
 </head>
 <body>
-
+<th:block th:insert="~{fragments/navbar}"></th:block>
+<br>
 <div class="container mt-5">
-    <h2 class="text-center">Menu Item Management</h2>
+    <h2 class="text-center mt-5">Menu Item Management</h2>
     <div class="text-right mb-3">
         <a th:href="@{/admin/menu/add}">
         <button class="btn btn-primary">Add Menu Item</button>
@@ -50,7 +51,6 @@
         </tbody>
     </table>
 </div>
-
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
