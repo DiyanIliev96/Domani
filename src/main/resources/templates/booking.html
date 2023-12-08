@@ -8,14 +8,21 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
-
+<th:block th:insert="~{fragments/navbar}"></th:block>
+<br>
 <div class="container mt-5">
   <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h2 class="text-center mb-4">Restaurant Booking</h2>
+    <div class="col-md-6 offset-md-3 pb-5">
+      <h2 class="text-center mb-4 mt-3">Restaurant Booking</h2>
 
       <!-- Booking Form -->
       <form th:action="@{/booking}" th:method="post" th:object="${newBooking}">
@@ -86,7 +93,7 @@
     </div>
   </div>
 </div>
-
+<th:block th:insert="~{fragments/footer}"></th:block>
 <!-- Bootstrap JS and Popper.js (required for Bootstrap dropdowns and modals) -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
