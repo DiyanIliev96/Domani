@@ -1,50 +1,344 @@
+/* General styles and resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* Smooth scroll behavior */
+:root {
+  scroll-behavior: smooth;
+  /* Colors */
+  --color-default: #212529;
+  --color-primary: #ce2812;
+  --color-secondary: #e9e9ef;
+  --color-light: #faf2d6;
+  --color-white: #fff;
+  --color-dark: #333;
+  --color-grey: #888;
+  --color-light-grey: #666;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-hover-color: rgba(0, 0, 0, 0.3);
+}
 
 /* Welcome Section styles */
 section.container {
-    font-family: 'Raleway', sans-serif;
-    padding-top: 30px;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    position: relative;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('/images/background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    filter: blur(3px); /* Adjust the pixel value for the desired blur effect */
-    z-index: -1;
+  font-family: "Raleway", sans-serif;
 }
 
 h1 {
-    color: #343A40; /* Black */
-    font-weight: 700;
-    margin-top: 10px;
+  color: var(--color-default);
+  font-weight: 700;
 }
 
 p {
-    color: #343A40; /* Black */
-    font-weight: 400;
-    font-size: 1em;
-    -webkit-text-stroke: 1px #000000;
+  color: var(--color-light);
+  font-weight: 400;
+}
+
+/* Header styles */
+.header {
+  background: var(--color-white);
+  transition: all 0.5s;
+  z-index: 997;
+  height: 90px;
+  border-bottom: 1px solid var(--color-white);
+}
+
+@media (max-width: 575px) {
+  .header {
+    height: 70px;
+  }
+}
+
+/* Welcome section */
+.welcome {
+  position: relative;
+  width: 100%;
+  background-size: cover;
+  min-height: 60vh;
+  padding: 100px 0 60px 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.welcome::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/background.jpg') center/cover no-repeat;
+  filter: blur(3px);
+  z-index: -1;
+}
+
+.welcome > * {
+  position: relative;
+  z-index: 2;
+}
+
+.welcome h2,
+.welcome p {
+  color: var(--color-default);
+  font-weight: 700;
+}
+
+.welcome h2 {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.welcome h2 span {
+  color: var(--color-primary);
+}
+
+.welcome p {
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+/* Special Menus Section */
+.special-menus {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.special-menus h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Menu Items */
+.menu-items {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.menu-item {
+  width: 300px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-white);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px var(--shadow-hover-color);
+}
+
+.menu-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.menu-info {
+  padding: 15px;
+}
+
+.menu-info h3 {
+  color: var(--color-dark);
+  margin: 0;
+  padding: 10px 0;
+}
+
+.price {
+  color: var(--color-grey);
+  margin: 5px 0;
+}
+
+.description {
+  color: var(--color-light-grey);
+  font-size: 0.9em;
+}
+
+/* Responsive behavior */
+@media (max-width: 767.98px) {
+  .border-sm-start-none {
+    border-left: none !important;
+  }
+}
+
+section {
+  scroll-margin-top: 90px;
+}
+
+/* Sticky navbar style */
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  width: 100%;
+}
+
+/* Navbar toggler custom style */
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:hover {
+  transform-origin: center;
+  animation: spin 1s linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(180deg);
+  }
+}
+
+/* Desktop view navbar hover animations */
+@media (min-width: 992px) {
+  .navbar-brand:hover,
+  .nav-link:hover {
+    transform: scale(1.1);
+    color: var(--color-primary);
+  }
+}
+
+.nav-item .nav-link,
+.navbar-brand {
+  padding: 0.5rem 1rem;
+}
+
+/* Footer */
+.footer-section {
+  padding: 40px 0;
+  background: var(--color-default);
+  color: var(--color-default);
+}
+
+.footer-section h3,
+p {
+  color: var(--color-default);
+  margin-bottom: 20px;
+}
+
+.footer-section p,
+.footer-section ul {
+  margin-bottom: 10px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer-section ul li a {
+  color: var(--color-default);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: var(--color-default);
+}
+
+.footer-contact p {
+  margin-bottom: 0;
+}
+
+.footer-social a {
+  display: inline-block;
+  margin-right: 10px;
+  color: var(--color-default);
+  transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: var(--color-default);
 }
 
 
+/**/
+.menu-section {
+  padding: 50px 0;
+  text-align: center;
+}
 
+.menu-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  margin-top: 20px
+}
 
-    
+.menu-categories .btn {
+  margin: 0 10px;
+  transition: transform 0.3s ease;
+}
 
+.menu-categories .btn:hover {
+  transform: translateY(-5px);
+}
 
+.special-menu-item {
+  width: 300px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-white);
+  transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+}
 
+.special-menu-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px var(--shadow-hover-color);
+}
 
+.special-menu-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.button-container {
+  text-align: center;
+  padding: 10px;
+}
+
+/* General button styling */
+.button {
+  padding: 10px 20px;
+  border: 2px solid white;
+  background-color: var(--color-default);
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+  background-color: darkred;
+  color: white;
+}
