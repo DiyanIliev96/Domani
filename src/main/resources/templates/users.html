@@ -10,7 +10,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="/css/users.css" rel="stylesheet">
-
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
 <script>
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();
@@ -19,6 +22,7 @@ $(document).ready(function(){
 </head>
 <body>
 <th:block th:insert="~{fragments/navbar}"></th:block>
+<br>
 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
@@ -39,7 +43,6 @@ $(document).ready(function(){
                         <th>Full Name</th>
                         <th class="d-none d-sm-table-cell">Email</th>
                         <th class="d-none d-md-table-cell">Role</th>
-                        <th class="d-none d-lg-table-cell">Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -59,7 +62,6 @@ $(document).ready(function(){
                     <th:block th:case="2">Admin</th:block>
                     <th:block th:case="1">User</th:block>
                 </td>
-                        <td class="d-none d-lg-table-cell"><span class="status text-success">&bull;</span> Active</td>
                         <td>
                             <a th:href="@{/admin/users/edit/{id}(id=${u.getUserId()})}" class="btn btn-info m-2" title="Settings">
                                 <div class="text-white">Edit</div></a>
@@ -107,6 +109,9 @@ $(document).ready(function(){
             </div>
         </div>
     </div>
-</div>     
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
