@@ -75,24 +75,36 @@ public class BookingDto {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BookingDto that)) return false;
-
-        if (getNumberOfGuests() != that.getNumberOfGuests()) return false;
-        if (!getFullName().equals(that.getFullName())) return false;
-        if (!getPhoneNumber().equals(that.getPhoneNumber())) return false;
-        if (getBookingDateTime() != null) {
-            return getBookingDateTime().equals(that.getBookingDateTime());
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        BookingDto other = (BookingDto) obj;
+
+        // Null checks to handle potential null values
+        if (getFullName() != null ? !getFullName().equals(other.getFullName()) : other.getFullName() != null) {
+            return false;
+        }
+        if (getPhoneNumber() != null ? !getPhoneNumber().equals(other.getPhoneNumber()) : other.getPhoneNumber() != null) {
+            return false;
+        }
+        if (getBookingDateTime() != null ? !getBookingDateTime().equals(other.getBookingDateTime()) : other.getBookingDateTime() != null) {
+            return false;
+        }
+
+        return getNumberOfGuests() == other.getNumberOfGuests();
     }
 
     @Override
     public int hashCode() {
-        int result = getFullName().hashCode();
-        result = 31 * result + getPhoneNumber().hashCode();
-        result = 31 * result + getBookingDateTime().hashCode();
+        int result = 1;
+        result = 31 * result + (getFullName() != null ? getFullName().hashCode() : 0);
+        result = 31 * result + (getPhoneNumber() != null ? getPhoneNumber().hashCode() : 0);
+        result = 31 * result + (getBookingDateTime() != null ? getBookingDateTime().hashCode() : 0);
         result = 31 * result + getNumberOfGuests();
         return result;
     }
