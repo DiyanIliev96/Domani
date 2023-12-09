@@ -5,6 +5,7 @@ import com.iliev.domani.validation.UniqueEmail;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.NumberFormat;
 
 public class EditUserDto {
 
@@ -16,8 +17,8 @@ public class EditUserDto {
     @Email(message = "Enter valid email!")
     @UniqueEmail
     String email;
-
-    Integer roles;
+    @NumberFormat
+    int roles;
 
     public String getFullName() {
         return fullName;
