@@ -1,20 +1,28 @@
 package com.iliev.domani.web;
 
+import com.iliev.domani.model.entity.CategoryEntity;
+import com.iliev.domani.model.entity.ProductEntity;
+import com.iliev.domani.model.enums.CategoryNameEnum;
+import com.iliev.domani.repository.ProductRepository;
 import com.iliev.domani.user.DomaniUserDetail;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -29,6 +37,24 @@ public class AdminProductControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @BeforeEach
+    void setUp() {
+        CategoryEntity category = new CategoryEntity()
+                .setId(1L)
+                .setName(CategoryNameEnum.Breakfast);
+        ProductEntity productEntity = new ProductEntity()
+                .setName("Test product")
+                .setCategory(category)
+                .setPrice(BigDecimal.TEN)
+                .setId(1L)
+                .setDescription("Test description")
+                .setImageUrl("Test url");
+        productRepository.save(productEntity);
+    }
 
     public static UserDetails admin() {
         return new DomaniUserDetail(5L,"admin adminov","admin@admin.com",
@@ -160,8 +186,20 @@ public class AdminProductControllerIT {
                         .param("category", "Breakfast")
                         .param("description", "Test description")
                         .param("price", "10.99"))
-                .andExpect(MockMvcResultMatchers.status().isForbidden())
-                ;
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(roles = {"USER","ADMIN"})
+    void testEditProduct_Successfully() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.multipart(HttpMethod.PATCH,"/admin/menu/edit/1").file(image()).with(csrf())
+                .param("name","New name")
+                .param("category","Lunch")
+                .param("description","New test description")
+                .param("price","5"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/menu/management"));
 
     }
 }
