@@ -66,6 +66,11 @@
 
         <th:block sec:authorize="isAuthenticated()">
           <li class="nav-item">
+            <a class="nav-link text-dark" th:href="@{/cart}">
+              <i class="fas fa-shopping-cart">Shopping cart</i>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link text-dark" th:href="@{/user/logout}">Logout</a>
           </li>
         </th:block>
