@@ -1,6 +1,8 @@
 package com.iliev.domani.web;
 
+import com.iliev.domani.repository.CartItemRepository;
 import com.iliev.domani.user.DomaniUserDetail;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,6 +27,9 @@ public class AdminUsersControllerIT {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
     public static UserDetails admin() {
         return new DomaniUserDetail(5L,"admin adminov","admin@admin.com",
                 "admin", List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
@@ -47,7 +52,9 @@ public class AdminUsersControllerIT {
 
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
+    @Transactional
     void testAdminDeleteUser_hasRoleAdmin() throws Exception {
+        cartItemRepository.deleteAllByUser_Id(1L);
         mockMvc.perform(MockMvcRequestBuilders.delete("/admin/users/1").with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/users"));
@@ -143,7 +150,7 @@ public class AdminUsersControllerIT {
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
     void testSuccessUserEdit_hasRoleAdmin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/2").with(csrf())
+        mockMvc.perform(MockMvcRequestBuilders.patch("/admin/users/edit/3").with(csrf())
                         .param("fullName","testtest")
                         .param("email","test@testtest.com")
                         .param("roles", String.valueOf(0)))
