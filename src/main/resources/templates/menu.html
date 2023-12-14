@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Restaurant Menu</title>
-<!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-<!-- Custom CSS -->
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -26,13 +25,21 @@
             <button class="btn btn-outline-dark" data-filter=".pizza">Pizza</button>
         </div>
         <section class="special-menus">
-        <div class="menu-items">
-            <div class="menu-item breakfast" th:each="breakfast : ${breakfastProducts}">
-                <img th:src="@{${breakfast.imageUrl}}" class="menu-img" alt="Breakfast Item">
-                <div class="menu-info">
-                    <h5 th:text="${breakfast.name}">Breakfast Item Name</h5>
-                    <span class="price" th:text="${breakfast.price}">8.00</span>
-                    <p th:text="${breakfast.description}">Description of the breakfast item.</p>
+            <div class="menu-items">
+                <div class="menu-item breakfast" th:each="breakfast : ${breakfastProducts}">
+                    <img th:src="@{${breakfast.imageUrl}}" class="menu-img" alt="Breakfast Item">
+                    <div class="menu-info">
+                        <h5 th:text="${breakfast.name}">Breakfast Item Name</h5>
+                        <span class="price" th:text="${breakfast.price}">8.00</span>
+                        <p th:text="${breakfast.description}">Description of the breakfast item.</p>
+                    </div>
+                    <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
+                        <input type="hidden" name="productId" th:value="${breakfast.getProductId()}" />
+                        <input type="hidden" name="category" th:value="${breakfast.getCategoryName().toLowerCase()}"/>
+                        <label for="breakfast">Quantity:</label>
+                        <input type="number" id="breakfast" name="quantity" value="1" min="1" max="10"/>
+                        <button type="submit" class="btn btn-info">Add to Cart</button>
+                    </form>
                 </div>
             </div>
     
@@ -42,6 +49,13 @@
                     <h5 th:text="${lunch.getName()}">Lunch Item Name</h5>
                     <span class="price" th:text="${lunch.getPrice()}">12.00</span>
                     <p th:text="${lunch.getDescription()}">Description of the lunch item.</p>
+                    <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
+                        <input type="hidden" name="productId" th:value="${lunch.getProductId()}" />
+                        <input type="hidden" name="category" th:value="${lunch.getCategoryName().toLowerCase()}"/>
+                        <label for="lunch">Quantity:</label>
+                        <input type="number" id="lunch" name="quantity" value="1" min="1" max="10"/>
+                        <button type="submit" class="btn btn-info">Add to Cart</button>
+                    </form>
                 </div>
             </div>
     
@@ -51,15 +65,29 @@
                     <h5 th:text="${dinner.getName()}">Dinner Item Name</h5>
                     <span class="price" th:text="${dinner.getPrice()}">15.00</span>
                     <p th:text="${dinner.getDescription()}">Description of the dinner item.</p>
+                    <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
+                        <input type="hidden" name="productId" th:value="${dinner.getProductId()}" />
+                        <input type="hidden" name="category" th:value="${dinner.getCategoryName().toLowerCase()}"/>
+                        <label for="dinner">Quantity:</label>
+                        <input type="number" id="dinner" name="quantity" value="1" min="1" max="10"/>
+                        <button type="submit" class="btn btn-info">Add to Cart</button>
+                    </form>
                 </div>
             </div>
-    
+
             <div class="menu-item dessert" th:each="dessert : ${dessertProducts}">
                 <img th:src="@{${dessert.getImageUrl()}}" class="menu-img" alt="Dessert Item">
                 <div class="menu-info">
                     <h5 th:text="${dessert.getName()}">Dessert Item Name</h5>
                     <span class="price" th:text="${dessert.getPrice()}">6.00</span>
                     <p th:text="${dessert.getDescription()}">Description of the dessert item.</p>
+                    <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
+                        <input type="hidden" name="productId" th:value="${dessert.getProductId()}" />
+                        <input type="hidden" name="category" th:value="${dessert.getCategoryName().toLowerCase()}"/>
+                        <label for="dessert">Quantity:</label>
+                        <input type="number" id="dessert" name="quantity" value="1" min="1" max="10"/>
+                        <button type="submit" class="btn btn-info">Add to Cart</button>
+                    </form>
                 </div>
             </div>
 
@@ -69,32 +97,62 @@
                     <h5 th:text="${pizza.getName()}">Pizza Item Name</h5>
                     <span class="price" th:text="${pizza.getPrice()}">12.00</span>
                     <p th:text="${pizza.getDescription()}">Description of the dessert item.</p>
-                </div>
+                    <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
+                        <input type="hidden" name="productId" th:value="${pizza.getProductId()}" />
+                        <input type="hidden" name="category" th:value="${pizza.getCategoryName().toLowerCase()}"/>
+                        <label for="pizza">Quantity:</label>
+                        <input type="number" id="pizza" name="quantity" value="1" min="1" max="10"/>
+                        <button type="submit" class="btn btn-info">Add to Cart</button>
+                    </form>
             </div>
         </div>
         </section>
     </div>
 
 
-<!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script>
-$(document).ready(function(){
-  $('.menu-categories button').click(function(){
-    var filterValue = $(this).attr('data-filter');
-    if(filterValue == "*") {
-      $('.menu-item').show();
-    } else {
-      $('.menu-item').not(filterValue).hide();
-      $('.menu-item').filter(filterValue).show();
-    }
-    $('.menu-categories button').removeClass('active');
-    $(this).addClass('active');
-  });
-});
+    $(document).ready(function(){
+        var urlParams = new URLSearchParams(window.location.search);
+        var categoryParam = urlParams.get('category');
+
+        $('.menu-categories button').removeClass('active');
+        if (categoryParam) {
+            $('.menu-categories button[data-filter=".' + categoryParam + '"]').addClass('active');
+        }
+
+        if(categoryParam == "*" || !categoryParam) {
+            $('.menu-item').show();
+        } else {
+            $('.menu-item').hide();
+            $('.menu-item.' + categoryParam).show();
+        }
+
+        $('.menu-categories button').click(function(){
+            var filterValue = $(this).attr('data-filter');
+
+
+            var categoryFromButton = filterValue ? filterValue.substr(1) : "";
+
+            var newUrl = window.location.pathname + '?category=' + categoryFromButton;
+            window.history.pushState({path:newUrl},'',newUrl);
+
+            // Filter menu based on category parameter
+            if(categoryFromButton == "*" || !categoryFromButton) {
+                $('.menu-item').show();
+            } else {
+                $('.menu-item').hide();
+                $('.menu-item.' + categoryFromButton).show();
+            }
+
+            // Set the active state for the clicked button
+            $('.menu-categories button').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
 </script>
 
 </body>
