@@ -25,6 +25,8 @@
             <button class="btn btn-outline-dark" data-filter=".pizza">Pizza</button>
         </div>
         <section class="special-menus">
+
+
             <div class="menu-items">
                 <div class="menu-item breakfast" th:each="breakfast : ${breakfastProducts}">
                     <img th:src="@{${breakfast.imageUrl}}" class="menu-img" alt="Breakfast Item">
@@ -32,17 +34,18 @@
                         <h5 th:text="${breakfast.name}">Breakfast Item Name</h5>
                         <span class="price" th:text="${breakfast.price}">8.00</span>
                         <p th:text="${breakfast.description}">Description of the breakfast item.</p>
+                        <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
+                            <input type="hidden" name="productId" th:value="${breakfast.getProductId()}" />
+                            <input type="hidden" name="category" th:value="${breakfast.getCategoryName().toLowerCase()}"/>
+                            <label for="breakfast">Quantity:</label>
+                            <input type="number" id="breakfast" name="quantity" value="1" min="1" max="10"/>
+                            <button type="submit" class="btn btn-info">Add to Cart</button>
+                        </form>
                     </div>
-                    <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
-                        <input type="hidden" name="productId" th:value="${breakfast.getProductId()}" />
-                        <input type="hidden" name="category" th:value="${breakfast.getCategoryName().toLowerCase()}"/>
-                        <label for="breakfast">Quantity:</label>
-                        <input type="number" id="breakfast" name="quantity" value="1" min="1" max="10"/>
-                        <button type="submit" class="btn btn-info">Add to Cart</button>
-                    </form>
                 </div>
             </div>
-    
+
+            <div class="menu-items">
             <div class="menu-item lunch" th:each="lunch : ${lunchProducts}">
                 <img th:src="@{${lunch.getImageUrl()}}" class="menu-img" alt="Lunch Item">
                 <div class="menu-info">
@@ -58,7 +61,9 @@
                     </form>
                 </div>
             </div>
-    
+            </div>
+
+            <div class="menu-items">
             <div class="menu-item dinner" th:each="dinner : ${dinnerProducts}">
                 <img th:src="@{${dinner.getImageUrl()}}" class="menu-img" alt="Dinner Item">
                 <div class="menu-info">
@@ -74,7 +79,9 @@
                     </form>
                 </div>
             </div>
+            </div>
 
+            <div class="menu-items">
             <div class="menu-item dessert" th:each="dessert : ${dessertProducts}">
                 <img th:src="@{${dessert.getImageUrl()}}" class="menu-img" alt="Dessert Item">
                 <div class="menu-info">
@@ -90,7 +97,9 @@
                     </form>
                 </div>
             </div>
+            </div>
 
+            <div class="menu-items">
             <div class="menu-item pizza" th:each="pizza : ${pizzaProducts}">
                 <img th:src="@{${pizza.getImageUrl()}}" class="menu-img" alt="Pizza Item">
                 <div class="menu-info">
@@ -106,6 +115,9 @@
                     </form>
             </div>
         </div>
+            </div>
+
+
         </section>
     </div>
 
