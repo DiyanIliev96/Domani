@@ -43,4 +43,9 @@ public class BookingController {
     public String getBookingFriday() {
         return "booking-friday";
     }
+
+    @GetMapping("/booking-next-hour")
+    public String getBookingNextHour() {
+        return "booking-next-hour";
+    }
 }
