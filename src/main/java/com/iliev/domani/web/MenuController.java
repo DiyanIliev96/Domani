@@ -1,5 +1,6 @@
 package com.iliev.domani.web;
 
+import com.iliev.domani.model.dto.CartItemDto;
 import com.iliev.domani.model.enums.CategoryNameEnum;
 import com.iliev.domani.model.view.ProductView;
 import com.iliev.domani.service.ProductService;
@@ -30,6 +31,9 @@ public class MenuController {
         model.addAttribute("breakfastProducts",allBreakfastProducts);
         model.addAttribute("dinnerProducts",allDinnerProducts);
         model.addAttribute("dessertProducts",allDesertProducts);
+        if (!model.containsAttribute("cartItem")) {
+            model.addAttribute("cartItem",new CartItemDto());
+        }
         return "menu";
     }
 }
