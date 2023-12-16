@@ -11,6 +11,9 @@ public class BookingDto {
     @NotBlank
     @Size(min = 4,max = 30)
     private String fullName;
+    @NotBlank(message = "Email cannot be empty!")
+    @Email(message = "Enter valid email!")
+    private String email;
     @NumberFormat(pattern = "^-?\\d+$")
     @NotNull(message = "Phone number cannot be null!")
     private Long phoneNumber;
@@ -107,5 +110,14 @@ public class BookingDto {
         result = 31 * result + (getBookingDateTime() != null ? getBookingDateTime().hashCode() : 0);
         result = 31 * result + getNumberOfGuests();
         return result;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public BookingDto setEmail(String email) {
+        this.email = email;
+        return this;
     }
 }
