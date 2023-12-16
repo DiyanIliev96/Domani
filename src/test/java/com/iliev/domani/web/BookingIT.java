@@ -33,10 +33,11 @@ public class BookingIT {
     @Test
     void testBooking_Successfully() throws Exception {
         mockMvc.perform(post("/booking").with(csrf())
-                .param("fullName", "testtest")
-                .param("phoneNumber", "12356675")
-                .param("bookingDateTime", "2023-12-14T19:16")
-                .param("numberOfGuests", "6"))
+                        .param("fullName", "testtest")
+                        .param("phoneNumber", "12356675")
+                        .param("bookingDateTime", "2025-12-14T21:16")
+                        .param("numberOfGuests", "6")
+                        .param("email", "test@test.com"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
     }
@@ -54,10 +55,11 @@ public class BookingIT {
     @Test
     void testBooking_UnSuccessfully_shortFullName() throws Exception {
         mockMvc.perform(post("/booking").with(csrf())
-                .param("fullName", "te")
-                .param("phone", "12356")
-                .param("bookingDateTime", "2023-12-15T18:59")
-                .param("numberOfGuests", "6"))
+                        .param("fullName", "te")
+                        .param("phone", "12356")
+                        .param("bookingDateTime", "2025-12-15T18:59")
+                        .param("numberOfGuests", "6")
+                        .param("email", "test@test.com"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/booking"));
     }
@@ -68,7 +70,8 @@ public class BookingIT {
                         .param("fullName", "test")
                         .param("phone", "12356")
                         .param("bookingDateTime", "2023-12-15T18:59")
-                        .param("numberOfGuests", "11"))
+                        .param("numberOfGuests", "11")
+                        .param("email", "test@test.com"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/booking-friday"));
     }
