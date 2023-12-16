@@ -13,6 +13,9 @@ public class BookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String email;
+
     @Column(nullable = false)
     private String fullName;
     @Column(nullable = false)
@@ -68,6 +71,15 @@ public class BookingEntity {
 
     public BookingEntity setNumberOfGuests(int numberOfGuests) {
         this.numberOfGuests = numberOfGuests;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public BookingEntity setEmail(String email) {
+        this.email = email;
         return this;
     }
 }
