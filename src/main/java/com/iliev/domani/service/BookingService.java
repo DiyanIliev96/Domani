@@ -1,11 +1,13 @@
 package com.iliev.domani.service;
 
+import com.iliev.domani.event.BookingSendEmailEvent;
 import com.iliev.domani.exception.ObjectNotFoundException;
 import com.iliev.domani.model.dto.BookingDto;
 import com.iliev.domani.model.entity.BookingEntity;
 import com.iliev.domani.model.view.BookingView;
 import com.iliev.domani.repository.BookingRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +20,22 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final ModelMapper modelMapper;
 
-    public BookingService(BookingRepository bookingRepository, ModelMapper modelMapper) {
+    private final ApplicationEventPublisher applicationEventPublisher;
+
+    public BookingService(BookingRepository bookingRepository, ModelMapper modelMapper, ApplicationEventPublisher applicationEventPublisher) {
         this.bookingRepository = bookingRepository;
         this.modelMapper = modelMapper;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     public void createBooking(BookingDto bookingDto) {
         BookingEntity newBooking = modelMapper.map(bookingDto, BookingEntity.class);
         bookingRepository.save(newBooking);
+        BookingView bookingView = modelMapper.map(newBooking, BookingView.class);
+        applicationEventPublisher.publishEvent(new BookingSendEmailEvent("BookingService"
+                ,bookingView.getEmail()
+                ,bookingView.getFullName()
+                ,bookingView.getBookingDateTime().replace("T"," at ")));
     }
 
     public List<BookingView> getAllBookings() {
