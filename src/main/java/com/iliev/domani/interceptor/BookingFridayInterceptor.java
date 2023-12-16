@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 @Configuration
-public class BookingInterceptor implements HandlerInterceptor {
+public class BookingFridayInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
