@@ -24,7 +24,6 @@
     <div class="col-md-6 offset-md-3 pb-5">
       <h2 class="text-center mb-4 mt-3">Restaurant Booking</h2>
 
-      <!-- Booking Form -->
       <form th:action="@{/booking}" th:method="post" th:object="${newBooking}">
         <div class="form-group">
           <label for="name">Full name:</label>
@@ -39,6 +38,19 @@
           <div class="invalid-feedback errors alert alert-danger" th:if="${#fields.hasErrors('fullName')}">Full name must be between 4 and 30 characters!</div>
         </div>
 
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email"
+                 class="form-control"
+                 id="email"
+                 name="email"
+                 placeholder="Enter your email"
+                 th:value="${email}"
+                 th:field="*{email}"
+                 th:errorclass="is-invalid"
+                 required>
+          <div class="invalid-feedback errors alert alert-danger" th:if="${#fields.hasErrors('email')}">Email must not be empty!</div>
+        </div>
 
         <div class="form-group">
           <label for="phone">Phone Number:</label>
@@ -88,13 +100,11 @@
 
         <button type="submit" class="btn btn-primary btn-block">Book Now</button>
       </form>
-      <!-- End Booking Form -->
 
     </div>
   </div>
 </div>
 <th:block th:insert="~{fragments/footer}"></th:block>
-<!-- Bootstrap JS and Popper.js (required for Bootstrap dropdowns and modals) -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
