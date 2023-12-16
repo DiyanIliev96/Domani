@@ -2,6 +2,7 @@ package com.iliev.domani.web;
 
 import com.iliev.domani.model.dto.BookingDto;
 import com.iliev.domani.service.BookingService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +21,14 @@ public class BookingController {
     }
 
     @GetMapping("/booking")
-    private String getBooking(Model model) {
+    private String getBooking(Model model,HttpServletRequest request) {
         if (!model.containsAttribute("newBooking")) {
-            model.addAttribute("newBooking",new BookingDto());
+            BookingDto bookingDto = new BookingDto();
+            String currentUserEmail = (String) request.getAttribute("email");
+            String currentUserFullName = (String) request.getAttribute("fullName");
+            bookingDto.setFullName(currentUserFullName);
+            bookingDto.setEmail(currentUserEmail);
+            model.addAttribute("newBooking",bookingDto);
         }
         return "booking";
     }
