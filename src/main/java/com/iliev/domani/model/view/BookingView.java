@@ -4,6 +4,7 @@ public class BookingView {
 
     private Long bookingId;
     private String fullName;
+    private String email;
     private String phoneNumber;
     private String bookingDateTime;
     private String numberOfGuests;
@@ -53,6 +54,15 @@ public class BookingView {
 
     public BookingView setBookingId(Long bookingId) {
         this.bookingId = bookingId;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public BookingView setEmail(String email) {
+        this.email = email;
         return this;
     }
 }
