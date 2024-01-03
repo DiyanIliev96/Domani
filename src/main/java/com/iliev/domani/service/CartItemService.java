@@ -48,7 +48,7 @@ public class CartItemService {
     }
 
     public List<CartItemView> getItemsByUserId(Long userId) {
-        List<CartItemView> cartItemViews = cartItemRepository.findAllByUser_id(userId)
+        List<CartItemView> cartItemViews = cartItemRepository.findAllByUser_idAndOrderIsNull(userId)
                 .stream()
                 .map(cartItem -> modelMapper.map(cartItem, CartItemView.class))
                 .toList();
