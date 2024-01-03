@@ -19,6 +19,8 @@ public class CartItem {
     private int quantity;
     @Column
     private BigDecimal totalPrice;
+    @ManyToOne
+    private OrderEntity order;
 
     public CartItem() {
         this.totalPrice = this.setTotalPrice().getTotalPrice();
@@ -70,6 +72,15 @@ public class CartItem {
 
     public CartItem setUser(UserEntity user) {
         this.user = user;
+        return this;
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public CartItem setOrder(OrderEntity order) {
+        this.order = order;
         return this;
     }
 }
