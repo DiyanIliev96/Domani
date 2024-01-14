@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 
@@ -55,7 +54,6 @@ public class CartController {
     @PostMapping("/cart/add")
     @PreAuthorize("hasRole('ROLE_USER')")
     public String addToCart(@Valid CartItemDto cartItemDto, BindingResult bindingResult
-            , RedirectAttributes redirectAttributes
             , @AuthenticationPrincipal DomaniUserDetail domaniUserDetail
             , @RequestParam(name = "category") String category
             ,Model model) {
