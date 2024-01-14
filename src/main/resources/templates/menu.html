@@ -35,8 +35,8 @@
                         <span class="price" th:text="${breakfast.price}">8.00</span>
                         <p th:text="${breakfast.description}">Description of the breakfast item.</p>
                         <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
-                            <input type="hidden" name="productId" th:value="${breakfast.getProductId()}" />
-                            <input type="hidden" name="category" th:value="${breakfast.getCategoryName().toLowerCase()}"/>
+                            <input type="hidden" name="productId" th:value="${breakfast.getProductId()}"/>
+                            <input type="hidden" name="category"/>
                             <label for="breakfast">Quantity:</label>
                             <input type="number" id="breakfast" name="quantity" value="1" min="1" max="10"/>
                             <button type="submit" class="btn btn-info">Add to Cart</button>
@@ -54,7 +54,7 @@
                     <p th:text="${lunch.getDescription()}">Description of the lunch item.</p>
                     <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
                         <input type="hidden" name="productId" th:value="${lunch.getProductId()}" />
-                        <input type="hidden" name="category" th:value="${lunch.getCategoryName().toLowerCase()}"/>
+                        <input type="hidden" name="category"/>
                         <label for="lunch">Quantity:</label>
                         <input type="number" id="lunch" name="quantity" value="1" min="1" max="10"/>
                         <button type="submit" class="btn btn-info">Add to Cart</button>
@@ -72,7 +72,7 @@
                     <p th:text="${dinner.getDescription()}">Description of the dinner item.</p>
                     <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
                         <input type="hidden" name="productId" th:value="${dinner.getProductId()}" />
-                        <input type="hidden" name="category" th:value="${dinner.getCategoryName().toLowerCase()}"/>
+                        <input type="hidden" name="category"/>
                         <label for="dinner">Quantity:</label>
                         <input type="number" id="dinner" name="quantity" value="1" min="1" max="10"/>
                         <button type="submit" class="btn btn-info">Add to Cart</button>
@@ -90,7 +90,7 @@
                     <p th:text="${dessert.getDescription()}">Description of the dessert item.</p>
                     <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
                         <input type="hidden" name="productId" th:value="${dessert.getProductId()}" />
-                        <input type="hidden" name="category" th:value="${dessert.getCategoryName().toLowerCase()}"/>
+                        <input type="hidden" name="category"/>
                         <label for="dessert">Quantity:</label>
                         <input type="number" id="dessert" name="quantity" value="1" min="1" max="10"/>
                         <button type="submit" class="btn btn-info">Add to Cart</button>
@@ -108,7 +108,7 @@
                     <p th:text="${pizza.getDescription()}">Description of the dessert item.</p>
                     <form th:action="@{/cart/add}" method="post" th:object="${cartItem}" sec:authorize="isAuthenticated()">
                         <input type="hidden" name="productId" th:value="${pizza.getProductId()}" />
-                        <input type="hidden" name="category" th:value="${pizza.getCategoryName().toLowerCase()}"/>
+                        <input type="hidden" name="category"/>
                         <label for="pizza">Quantity:</label>
                         <input type="number" id="pizza" name="quantity" value="1" min="1" max="10"/>
                         <button type="submit" class="btn btn-info">Add to Cart</button>
@@ -152,7 +152,7 @@
             var newUrl = window.location.pathname + '?category=' + categoryFromButton;
             window.history.pushState({path:newUrl},'',newUrl);
 
-            // Filter menu based on category parameter
+
             if(categoryFromButton == "*" || !categoryFromButton) {
                 $('.menu-item').show();
             } else {
@@ -160,9 +160,12 @@
                 $('.menu-item.' + categoryFromButton).show();
             }
 
-            // Set the active state for the clicked button
+
             $('.menu-categories button').removeClass('active');
             $(this).addClass('active');
+            $('input[name="category"]').val(categoryFromButton);
+            console.log(categoryFromButton);
+            console.log("categoryParam");
         });
     });
 </script>
