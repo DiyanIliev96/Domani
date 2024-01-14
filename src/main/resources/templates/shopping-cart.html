@@ -52,7 +52,7 @@
     <form th:action="@{/cart/delete/all}" th:method="delete">
       <button type="submit" class="btn btn-danger">Remove All</button>
     </form>
-    <button class="btn btn-primary">Checkout</button>
+    <a th:href="@{/order}" th:if="${!items.isEmpty()}" class="btn btn-primary">Checkout</a>
   </div>
 </div>
 
