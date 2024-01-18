@@ -19,9 +19,7 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = {@JoinColumn(name = "user_id")},inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<RoleEntity> roles;
-    @OneToMany
-    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")},inverseJoinColumns = {@JoinColumn(name = "cart_item_id")})
-    private Set<CartItem> items;
+
     public UserEntity() {
     }
 
@@ -67,15 +65,6 @@ public class UserEntity {
 
     public UserEntity setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
-        return this;
-    }
-
-    public Set<CartItem> getItems() {
-        return items;
-    }
-
-    public UserEntity setItems(Set<CartItem> items) {
-        this.items = items;
         return this;
     }
 }
