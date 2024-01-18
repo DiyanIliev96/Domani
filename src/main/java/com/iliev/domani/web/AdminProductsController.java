@@ -5,6 +5,9 @@ import com.iliev.domani.model.dto.EditProductDto;
 import com.iliev.domani.model.view.ProductView;
 import com.iliev.domani.service.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,9 +31,11 @@ public class AdminProductsController {
 
     @GetMapping("/menu/management")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    private String getMenuManagement(Model model) {
-        List<ProductView> allProducts = productService.getAllProducts();
-
+    private String getMenuManagement(Model model, @PageableDefault(size = 10) Pageable pageable) {
+        Page<ProductView> allProducts = productService.getAllProducts(pageable);
+        int totalPages = allProducts.getTotalPages();
+        List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages - 1).boxed().toList();
+        model.addAttribute("pageNumbers",pageNumbers);
         model.addAttribute("allProducts",allProducts);
         return "menu-management";
     }

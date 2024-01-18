@@ -52,8 +52,31 @@
 
                 </td>
             </tr>
+
         </tbody>
     </table>
+    <ul class="pagination">
+        <li class="page-item" th:classappend="${allProducts.hasPrevious()} ? 'active' : 'disabled'">
+            <a th:href="@{/admin/menu/management(size = ${allProducts.getSize()},page=${allProducts.getNumber() - 1})}" class="page-link">
+                Previous</a>
+        </li>
+        <li class="page-item" th:classappend="${allProducts.getNumber() == 0 ? 'active' : ''}">
+            <a th:href="@{/admin/menu/management(size=${allProducts.getSize()},page=0)}" class="page-link">1</a>
+        </li>
+        <li class="pagination" th:if="${allProducts.getTotalPages() > 0}" th:each="pageNumber : ${pageNumbers}"
+            th:classappend="${pageNumber==allProducts.getNumber()} ? 'active' : ''">
+            <a th:href="@{/admin/menu/management(size=${allProducts.getSize()},page=${pageNumber})}" th:text="${pageNumber} + 1"></a>
+
+        </li>
+
+        <li class="page-item" th:classappend="${allProducts.hasNext() ? 'active' : 'disabled'}">
+            <a th:href="@{/admin/menu/management(size = ${allProducts.getSize()},page=${allProducts.getNumber() + 1})}" class="page-link">
+                Next</a>
+        </li>
+        <li class="page-item" th:classappend="${allProducts.isLast() ? 'disabled' : 'active'}">
+            <a th:href="@{/admin/menu/management(size=${allProducts.getSize()},page=${allProducts.getTotalPages() - 1})}" class="page-link">Last</a>
+        </li>
+    </ul>
 </div>
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

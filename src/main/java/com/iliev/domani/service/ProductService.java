@@ -10,6 +10,8 @@ import com.iliev.domani.model.view.ProductView;
 import com.iliev.domani.repository.CategoryRepository;
 import com.iliev.domani.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -41,11 +43,9 @@ public class ProductService {
         productRepository.save(newProduct);
     }
 
-    public List<ProductView> getAllProducts() {
-        return productRepository.findAllByOrderByCategory_NameAscNameAsc()
-                .stream()
-                .map(productEntity -> modelMapper.map(productEntity, ProductView.class))
-                .toList();
+    public Page<ProductView> getAllProducts(Pageable pageable) {
+        return productRepository.findAllByOrderByCategory_NameAscNameAsc(pageable)
+                .map(productEntity -> modelMapper.map(productEntity, ProductView.class));
     }
 
     public List<ProductView> getAllProductsByCategory (CategoryNameEnum name) {
