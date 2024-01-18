@@ -4,6 +4,7 @@ import com.iliev.domani.exception.ObjectNotFoundException;
 import com.iliev.domani.model.dto.CreateUserDto;
 import com.iliev.domani.model.dto.EditUserDto;
 import com.iliev.domani.model.dto.RegisterDto;
+import com.iliev.domani.model.entity.OrderEntity;
 import com.iliev.domani.model.entity.RoleEntity;
 import com.iliev.domani.model.entity.UserEntity;
 import com.iliev.domani.model.enums.InitUserNamesEnum;
@@ -38,13 +39,18 @@ public class UserService {
 
     private final EmailService emailService;
 
+    private final CartItemService cartItemService;
+
+    private final OrderService orderService;
     private final UserDetailsService userDetailsService;
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ModelMapper modelMapper, EmailService emailService, UserDetailsService userDetailsService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ModelMapper modelMapper, EmailService emailService, CartItemService cartItemService, OrderService orderService, UserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
         this.emailService = emailService;
+        this.cartItemService = cartItemService;
+        this.orderService = orderService;
         this.userDetailsService = userDetailsService;
     }
 
@@ -91,8 +97,13 @@ public class UserService {
         return modelMapper.map(userToEdit,EditUserDto.class);
     }
 
-    public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUserById(Long userId) {
+        List<OrderEntity> allOrdersByUser = orderService.getAllOrdersByUserId(userId);
+        if (!allOrdersByUser.isEmpty()) {
+            allOrdersByUser.forEach(order -> orderService.deleteOrder(order.getId(),userId));
+        }
+        cartItemService.deleteAllCartItems(userId);
+        userRepository.deleteById(userId);
     }
 
     public void createUserByAdmin(CreateUserDto createUserDto) {
