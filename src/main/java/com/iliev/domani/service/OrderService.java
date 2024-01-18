@@ -93,4 +93,8 @@ public class OrderService {
                .map(cartItem -> modelMapper.map(cartItem, CartItemView.class))
                .toList();
     }
+
+    public List<OrderEntity> getAllOrdersByUserId(Long id) {
+        return orderRepository.findAllByUser_Id(id);
+    }
 }
