@@ -33,7 +33,7 @@ const sampleSpecials = [
 
 function fetchSpecials() {
   fetch(
-    "https://domani1.salmonwater-6e46125d.westeurope.azurecontainerapps.io/specialties",
+    "https://domani-production.up.railway.app/specialties",
   )
     .then((response) => {
       if (!response.ok) {
