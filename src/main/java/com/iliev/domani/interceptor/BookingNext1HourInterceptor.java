@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 
 @Configuration
@@ -25,7 +26,7 @@ public class BookingNext1HourInterceptor implements HandlerInterceptor {
             }
             int minute = LocalDateTime.now().getMinute();
             int bookingMinute = bookingDateTime.getMinute();
-            int hour = LocalDateTime.now().getHour() + 1;
+            int hour = LocalDateTime.now(ZoneId.of("Europe/Sofia")).getHour() + 1;
             int bookingHour = bookingDateTime.getHour();
             if (bookingHour == hour && bookingMinute <= minute) {
                 response.sendRedirect("/booking-next-hour");
