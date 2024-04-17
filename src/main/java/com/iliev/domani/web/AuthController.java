@@ -2,7 +2,9 @@ package com.iliev.domani.web;
 
 import com.iliev.domani.model.dto.RegisterDto;
 import com.iliev.domani.service.UserService;
+import com.iliev.domani.user.DomaniUserDetail;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +30,10 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    private String getLogin() {
-
+    private String getLogin(@AuthenticationPrincipal DomaniUserDetail domaniUserDetail) {
+        if (domaniUserDetail != null) {
+            return "redirect:/";
+        }
         return "login";
     }
 

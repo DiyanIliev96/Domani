@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:if='${error}'>
+    <h3 th:text='${error}' style='color: red;'></h3>
+    <a th:href='@{/cart}'>Checkout again</a>
+</th:block>
+<div th:unless='${error}'>
+  <h3 style='color: green;'>Your payment is successful! Your order will come soon.</h3>
+    <a th:href="@{/}">Go back to home page</a>
+</div>
+
+</body>
+</html>

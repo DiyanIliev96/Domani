@@ -8,10 +8,12 @@ import com.iliev.domani.model.view.CartItemView;
 import com.iliev.domani.repository.CartItemRepository;
 import com.iliev.domani.repository.ProductRepository;
 import com.iliev.domani.repository.UserRepository;
+import com.iliev.domani.user.DomaniUserDetail;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -63,5 +65,12 @@ public class CartItemService {
     @Transactional
     public void deleteAllCartItems(Long userId) {
         cartItemRepository.deleteAllByUser_Id(userId);
+    }
+
+    public String getShoppingCartTotalPrice(DomaniUserDetail domaniUserDetail) {
+        return getItemsByUserId(domaniUserDetail.getId())
+                .stream().map(CartItemView::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .toString();
     }
 }

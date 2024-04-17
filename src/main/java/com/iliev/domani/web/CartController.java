@@ -1,7 +1,6 @@
 package com.iliev.domani.web;
 
 import com.iliev.domani.model.dto.CartItemDto;
-import com.iliev.domani.model.view.CartItemView;
 import com.iliev.domani.service.CartItemService;
 import com.iliev.domani.user.DomaniUserDetail;
 import jakarta.validation.Valid;
@@ -13,12 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 
 @Controller
 public class CartController {
-
     private final CartItemService cartItemService;
+
 
     public CartController(CartItemService cartItemService) {
         this.cartItemService = cartItemService;
@@ -29,27 +27,13 @@ public class CartController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public String getShoppingCart(Model model, @AuthenticationPrincipal DomaniUserDetail domaniUserDetail) {
         if (!model.containsAttribute("items")) {
-            String shoppingCartTotalPrice = getShoppingCartTotalPrice(domaniUserDetail);
+            String shoppingCartTotalPrice = cartItemService.getShoppingCartTotalPrice(domaniUserDetail);
             setShoppingCartTotalPrice(model, shoppingCartTotalPrice);
             model.addAttribute("items",cartItemService.getItemsByUserId(domaniUserDetail.getId()));
         }
         return "shopping-cart";
     }
 
-    private static void setShoppingCartTotalPrice(Model model, String shoppingCartTotalPrice) {
-        if (shoppingCartTotalPrice.equals("0")) {
-            model.addAttribute("shoppingCartTotalPrice","0.00");
-        } else {
-            model.addAttribute("shoppingCartTotalPrice", shoppingCartTotalPrice);
-        }
-    }
-
-    private String getShoppingCartTotalPrice(DomaniUserDetail domaniUserDetail) {
-        return cartItemService.getItemsByUserId(domaniUserDetail.getId())
-                .stream().map(CartItemView::getTotalPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .toString();
-    }
 
     @PostMapping("/cart/add")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -87,5 +71,15 @@ public class CartController {
         cartItemService.deleteAllCartItems(domaniUserDetail.getId());
     return "redirect:/cart";
     }
+
+
+    private static void setShoppingCartTotalPrice(Model model, String shoppingCartTotalPrice) {
+        if (shoppingCartTotalPrice.equals("0")) {
+            model.addAttribute("shoppingCartTotalPrice","0.00");
+        } else {
+            model.addAttribute("shoppingCartTotalPrice", shoppingCartTotalPrice);
+        }
+    }
+
 
 }

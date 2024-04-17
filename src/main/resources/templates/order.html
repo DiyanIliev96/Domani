@@ -18,17 +18,23 @@
                    id="deliveryAddress"
                    placeholder="Enter delivery address"
                    th:field="*{deliveryAddress}"
+                   th:errorclass="is-invalid"
                    required>
+            <div class="pl-1 invalid-feedback errors alert alert-danger" th:each="err : ${#fields.errors('deliveryAddress')}" th:text="${err}">
+                Delivery address cannot be empty!</div>
         </div>
         <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="tel"
+            <label for="phone">Phone Number:</label>
+            <input type="number"
                    class="form-control"
+                   id="phone"
+                   placeholder="Enter your phone number"
                    name="phoneNumber"
-                   id="phoneNumber"
-                   placeholder="Enter phone number"
                    th:field="*{phoneNumber}"
+                   th:errorclass="is-invalid"
                    required>
+            <div class="invalid-feedback errors alert alert-danger" th:each="err : ${#fields.errors('phoneNumber')}" th:text="${err}">
+                Phone number cannot be empty and should be in number format!</div>
         </div>
         <div class="form-group">
             <label for="additionalInfo">Additional Information</label>
@@ -40,14 +46,36 @@
                       th:field="*{additionalInfo}"
             ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Order</button>
+        <input id="orderAmount" name="orderAmount" type="hidden" th:value="${amount}">
+        <input type="hidden" name="cashPayment" id="cashPaymentInput" value="false">
+        <button type="submit" id="pay-cash" class="btn btn-primary">Order with cash payment</button>
         <a th:href="@{/cart}" class="btn btn-secondary ml-2">Cancel</a>
+
+        <th:block>
+            <form th:action='@{/order}' method='POST' id='checkout-form' th:object="${newOrder}">
+                <input type='hidden' th:value='${amount}' name='amount' />
+                <script id="checkout-script"
+                        src='https://checkout.stripe.com/checkout.js'
+                        class='stripe-button'
+                        th:attr='data-key=${stripePublicKey},
+                        data-amount=${amount},
+                        data-currency=${currency},data-email=${userEmail}'
+                        data-name='Domani'
+                        data-description='Domani checkout with card'
+                        data-locale='auto'
+                        data-zip-code='false'
+                >
+                </script>
+            </form>
+        </th:block>
     </form>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/order.js"></script>
 
 
 </body>

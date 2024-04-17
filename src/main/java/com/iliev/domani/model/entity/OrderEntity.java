@@ -1,6 +1,8 @@
 package com.iliev.domani.model.entity;
 
 import com.iliev.domani.model.enums.OrderStatusName;
+import com.iliev.domani.model.enums.PaymentMethodEnum;
+import com.iliev.domani.model.enums.PaymentStatusEnum;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -23,6 +25,10 @@ public class OrderEntity {
     private String additionalInfo;
     @Column(nullable = false)
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethodEnum paymentMethod;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatusEnum paymentStatus;
 
     public OrderEntity() {
     }
@@ -87,6 +93,24 @@ public class OrderEntity {
 
     public OrderEntity setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public PaymentMethodEnum getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public OrderEntity setPaymentMethod(PaymentMethodEnum paymentMethod) {
+        this.paymentMethod = paymentMethod;
+        return this;
+    }
+
+    public PaymentStatusEnum getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public OrderEntity setPaymentStatus(PaymentStatusEnum paymentStatus) {
+        this.paymentStatus = paymentStatus;
         return this;
     }
 }

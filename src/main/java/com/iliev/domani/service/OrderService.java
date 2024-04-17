@@ -45,7 +45,9 @@ public class OrderService {
                 .setDeliveryAddress(orderDto.getDeliveryAddress())
                 .setPhoneNumber(orderDto.getPhoneNumber().toString())
                 .setAdditionalInfo(orderDto.getAdditionalInfo())
-                .setOrderStatus(OrderStatusName.PENDING);
+                .setOrderStatus(OrderStatusName.PENDING)
+                .setPaymentMethod(orderDto.getPaymentMethod())
+                .setPaymentStatus(orderDto.getPaymentStatus());
 
         orderRepository.save(newOrder);
 
