@@ -9,7 +9,7 @@
 <body>
 
 <div class="container mt-5">
-    <form th:action="@{/order}" th:method="post" th:object="${newOrder}">
+    <form id="cash-form" th:action="@{/order}" th:method="post" th:object="${newOrder}">
         <div class="form-group">
             <label for="deliveryAddress">Delivery Address</label>
             <input type="text"
